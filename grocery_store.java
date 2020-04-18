@@ -14,8 +14,8 @@ public class grocery_store {
 		int flag=0;
 		if(input1==2) flag=2;
 		boolean loggedin=false;
-		while(true && flag!=0) {	
 		Consumer customer=new Consumer();
+		while(true && flag!=0) {	
 		if(flag==2) {
 			try {
 				if(!loggedin) {
