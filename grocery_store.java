@@ -15,7 +15,51 @@ public class grocery_store {
 		if(input1==2) flag=2;
 		boolean loggedin=false;
 		Consumer customer=new Consumer();
-		while(true && flag!=0) {	
+		while(true && flag!=0) {
+		if(flag==1)
+		{
+			int loginadmin=admin.admin_login(con);
+			if(loginadmin==1)
+			{
+				System.out.println("Welcome");
+				System.out.println("Admin Menu");
+				System.out.println("1. Product");
+				System.out.println("2. Suppliers");
+				System.out.println("3. Consumers");
+				System.out.println("4 Delievery Executive");
+				System.out.println("5. Feedbacks");
+				System.out.println("6. Categories");
+				System.out.println("0. Exit");
+				System.out.println("Choose an option");
+				int choice=sc.nextInt();
+				if(choice==1)
+				{
+					admin.edit_products(con);
+				}
+				else if(choice==2)
+				{
+					admin.edit_supplier(con);
+				}
+				else if(choice==3)
+				{
+					admin.edit_consumer(con);
+				}
+				else if(choice==4)
+				{
+					admin.edit_delieveryexecutive(con);
+				}
+				else if(choice==5)
+				{
+					admin.view_feedback(con);
+				}
+				else if(choice==0) {
+					break;
+				}
+			}
+			else {
+				System.out.println("Login failed");
+			}
+		}
 		if(flag==2) {
 			try {
 				if(!loggedin) {
