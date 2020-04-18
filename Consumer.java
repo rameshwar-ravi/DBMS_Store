@@ -82,7 +82,7 @@ public class Consumer {
 					System.out.println(category);
 					ResultSet rs=stmt.executeQuery("select p.product_name,p.product_price,p.product_rating,c.category_name from products as p,categories as c where p.quantity_available>0 and p.category_id=c.category_id and c.category_name='"+category+"'");
 					while(rs.next()) {
-						System.out.println("product"+rs.getString("p.product_name")+" price  "+rs.getString("p.product_price")+" ratings "+rs.getString("p.product_rating")+" category "+rs.getString("c.category_name"));
+						System.out.println("product "+rs.getString("p.product_name")+" price  "+rs.getString("p.product_price")+" ratings "+rs.getString("p.product_rating")+" category "+rs.getString("c.category_name"));
 					}
 					stmt.close();
 					return 1;
@@ -96,40 +96,43 @@ public class Consumer {
 					return 1;
 				}
 				else if(flag==4) {
-						System.out.println("Search for product and add to cart, press 0 to complete the order and place to cart");
-						System.out.println("ADD in previous order yes/no");
+						System.out.println("Search for product and add to cart");
+						String prod1=sc.nextLine();
 						String prod=sc.nextLine();
-						System.out.println(prod);
-						String s=sc.next();
-						if(!s.equals("yes")) {
-							order_id++;
-							productcount=0;
-							cost=0;
-						}
+						System.out.println("you entered "+prod);
 						productcount++;
 						ResultSet rs=stmt.executeQuery("select product_name,product_price,product_rating,quantity_available from products where product_name='"+prod+"'");
 						System.out.println(rs.first()) ;
 						int product_price=rs.getInt("product_price");
-						System.out.println("product"+rs.getString("product_name")+" price  "+Integer.toString(product_price)+" ratings "+rs.getString("product_rating"));
+						System.out.println("product "+rs.getString("product_name")+" price  "+Integer.toString(product_price)+" ratings "+rs.getString("product_rating"));
 						System.out.println("want to add this product to cart yes/no");
 						String input=sc.next();
 						if(input.equals("yes")) {
 							int quantity_available=rs.getInt(4);
 							System.out.println("quantity, please put less than "+quantity_available);
 							int k=sc.nextInt();
+							if(k>quantity_available) {
+								System.out.println("not available");
+								return 0;
+							}
+							
 							int price=product_price*k;
 							cost+=price;
+							System.out.println(cost);
 							String pr=Integer.toString(price);
 							stmt.executeUpdate("INSERT INTO order_items VALUES ("+Integer.toString(order_id)+","+rs.getString("product_price")+","+Integer.toString(k)+","+pr+","+"0"+","+pr+")" );
-							System.out.println("hi");
+							String qu="UPDATE products SET quantity_available ="+Integer.toString(quantity_available-k)+" WHERE product_name='"+prod+"'";
+							stmt.executeUpdate(qu);
 						}
 						System.out.println("finish order yes/no");
 						String inp1=sc.next();
 						if(inp1.equals("yes")) {
 							order_id++;
-							productcount=0;cost=0;
-							stmt.executeUpdate("INSERT INTO orders (order_id,customer_id) VALUES ("+Integer.toString(order_id)+","+Integer.toString(customer_id)+")");
+							stmt.executeUpdate("INSERT INTO orders (customer_id) VALUES ("+Integer.toString(customer_id)+")");
+							System.out.println(cost+" "+productcount+"hi");
 							stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(cost)+","+Integer.toString(productcount)+")");
+							productcount=0;cost=0;
+							
 							return 1;
 						}
 						return 1;
@@ -151,6 +154,7 @@ public class Consumer {
 						System.out.println("order placed successfully");
 						stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(-totc)+","+Integer.toString(-totp)+")");
 					}
+					else return 1;
 				}
 				
 			}
