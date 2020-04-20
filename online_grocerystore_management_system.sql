@@ -1,3 +1,4 @@
+DROP DATABASE `online_grocerystore_management_system`;
 
 CREATE DATABASE `online_grocerystore_management_system` ;
 
