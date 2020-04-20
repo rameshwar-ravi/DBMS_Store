@@ -100,10 +100,15 @@ public class Consumer {
 						String prod1=sc.nextLine();
 						String prod=sc.nextLine();
 						System.out.println("you entered "+prod);
+						ResultSet rs1=stmt.executeQuery("select count(*) from orders");
+						while(rs1.next()) {
+							order_id=rs1.getInt(1)+1;
+						}
 						productcount++;
-						ResultSet rs=stmt.executeQuery("select product_name,product_price,product_rating,quantity_available from products where product_name='"+prod+"'");
+						ResultSet rs=stmt.executeQuery("select product_name,product_price,product_rating,quantity_available,product_id from products where product_name='"+prod+"'");
 						System.out.println(rs.first()) ;
 						int product_price=rs.getInt("product_price");
+						int product_id=rs.getInt("product_id");
 						System.out.println("product "+rs.getString("product_name")+" price  "+Integer.toString(product_price)+" ratings "+rs.getString("product_rating"));
 						System.out.println("want to add this product to cart yes/no");
 						String input=sc.next();
@@ -120,9 +125,13 @@ public class Consumer {
 							cost+=price;
 							System.out.println(cost);
 							String pr=Integer.toString(price);
-							stmt.executeUpdate("INSERT INTO order_items VALUES ("+Integer.toString(order_id)+","+rs.getString("product_price")+","+Integer.toString(k)+","+pr+","+"0"+","+pr+")" );
+							
+							System.out.println(order_id);
+							stmt.executeUpdate("INSERT INTO order_items VALUES ("+Integer.toString(order_id)+","+Integer.toString(product_id)+","+Integer.toString(k)+","+pr+","+"0"+","+pr+")" );
+							System.out.println("hi");
 							String qu="UPDATE products SET quantity_available ="+Integer.toString(quantity_available-k)+" WHERE product_name='"+prod+"'";
 							stmt.executeUpdate(qu);
+							System.out.println("hi1");
 						}
 						System.out.println("finish order yes/no");
 						String inp1=sc.next();
@@ -155,6 +164,34 @@ public class Consumer {
 						stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(-totc)+","+Integer.toString(-totp)+")");
 					}
 					else return 1;
+				}
+				if(flag==7) {
+					String cust_id=Integer.toString(customer_id);
+					String q="SELECT p.product_name from orders as o,order_items as od,products as p where o.customer_id="+cust_id +" and od.order_id=o.order_id and p.product_id=od.product_id";
+					ResultSet rs=stmt.executeQuery(q);
+					
+					while(rs.next()) {
+						System.out.println("product "+rs.getString("p.product_name"));
+						}
+					System.out.print("submit the name of the products to rate:");
+					sc.nextLine();
+					String prod=sc.nextLine();
+					System.out.println("enter rating between 0 to 5");
+					int ratings=sc.nextInt();
+					System.out.println("hi");
+					System.out.println(prod);
+					rs=stmt.executeQuery("SELECT product_id from products where product_name='"+prod+"'");
+					int p_id=0;
+					while(rs.next()) {
+						p_id=rs.getInt(1);
+					}
+					
+					System.out.println("("+cust_id+","+Integer.toString(p_id)+","+Integer.toString(p_id)+")");
+					
+					String q1="INSERT INTO feedback (customer_id,product_id,product_rating) VALUES ("+cust_id+","+Integer.toString(p_id)+","+Integer.toString(ratings)+")";
+					stmt.executeUpdate(q1);
+					stmt.close();
+					return 1;
 				}
 				
 			}
