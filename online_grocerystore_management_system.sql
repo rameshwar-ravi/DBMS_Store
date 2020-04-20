@@ -23,7 +23,7 @@ CREATE TABLE `online_grocerystore_management_system`.`invoice` (
   `number_of_products` INT(5) NULL);
 
 CREATE TABLE `online_grocerystore_management_system`.`feedback` (
-	`f_id` INT auto_increment,
+	`f_id` int NOT NULL AUTO_INCREMENT,
   `customer_id` INT NOT NULL,
   `product_id` INT NOT NULL,
   `supplier_id` INT ,
@@ -33,6 +33,8 @@ CREATE TABLE `online_grocerystore_management_system`.`feedback` (
   `delivery_executive_rating` INT NULL,
   `submission_date` TIMESTAMP NULL,
   PRIMARY KEY(`f_id`));
+   
+
   drop table feedback;
   INSERT INTO feedback (customer_id,product_id,product_rating) VALUES (1,20,5);
   select * from products where product_name='Bro Code';
@@ -143,11 +145,11 @@ INSERT into `online_grocerystore_management_system`.`cart` VALUES (8,403,1);
 INSERT into `online_grocerystore_management_system`.`cart` VALUES (1,120,4);
 INSERT into `online_grocerystore_management_system`.`cart` VALUES (3,80,2);
 
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (6,6,3,7,3,5,4.5,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (5,19,7,8,4,5,4,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (2,41,9,4,3.9,3,4,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (9,8,8,1,5,2,4.5,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (4,32,11,2,5,3,4.5,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (1,6,6,3,7,3,5,4.5,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (2,5,19,7,8,4,5,4,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (3,2,41,9,4,3.9,3,4,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (4,9,8,8,1,5,2,4.5,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (5,4,32,11,2,5,3,4.5,'2020-02-03 10:07:31');
 
 
 INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	1,'Harvest Gold',110087,'9823787645',+91,4.6);
