@@ -53,7 +53,7 @@ CREATE TABLE `online_grocerystore_management_system`.`feedback` (
   `delivery_executive_phone` VARCHAR(15) NOT NULL,
   `photo_id_type` VARCHAR(15) NULL,
   `photo_id_number` VARCHAR(25) NULL,
-  `raring` VARCHAR(5) NULL,
+  `rating` VARCHAR(5) NULL,
   PRIMARY KEY (`delivery_executive_id`));
   
 CREATE TABLE `online_grocerystore_management_system`.`categories` (
@@ -131,14 +131,14 @@ INSERT into `online_grocerystore_management_system`.`return_order` VALUES (2,06,
  INSERT into `online_grocerystore_management_system`.`admin` VALUES (4,'Chhavi Keshwani','chhavi17227','chhavi1234');
  INSERT into `online_grocerystore_management_system`.`admin` VALUES (5,'Jayant Jain','jayant17155','jayant1234');
  
-INSERT into `online_grocerystore_management_system`.`invoice` VALUES (1,01,'Cash',0);
-INSERT into `online_grocerystore_management_system`.`invoice` VALUES (2,02,'Credit/Debit Card Payment',1);
-INSERT into `online_grocerystore_management_system`.`invoice` VALUES (3,03,'Bank Transfer',1);
-INSERT into `online_grocerystore_management_system`.`invoice` VALUES (4,04,'Cash',1);
-INSERT into `online_grocerystore_management_system`.`invoice` VALUES (5,05,'Bank Transfer',1);
-INSERT into `online_grocerystore_management_system`.`invoice` VALUES (6,06,'Bank Transfer',0);
-INSERT into `online_grocerystore_management_system`.`invoice` VALUES (7,07,'Cash',0);
-INSERT into `online_grocerystore_management_system`.`invoice` VALUES (8,08,'Credit/Debit Card Payment',1);
+INSERT into `online_grocerystore_management_system`.`invoice` VALUES (1,1,'Cash',0);
+INSERT into `online_grocerystore_management_system`.`invoice` VALUES (2,2,'Credit/Debit Card Payment',1);
+INSERT into `online_grocerystore_management_system`.`invoice` VALUES (3,3,'Bank Transfer',1);
+INSERT into `online_grocerystore_management_system`.`invoice` VALUES (4,4,'Cash',1);
+INSERT into `online_grocerystore_management_system`.`invoice` VALUES (5,5,'Bank Transfer',1);
+INSERT into `online_grocerystore_management_system`.`invoice` VALUES (6,6,'Bank Transfer',0);
+INSERT into `online_grocerystore_management_system`.`invoice` VALUES (7,7,'Cash',0);
+INSERT into `online_grocerystore_management_system`.`invoice` VALUES (8,8,'Credit/Debit Card Payment',1);
 
 INSERT into `online_grocerystore_management_system`.`cart` VALUES (5,80,2);
 INSERT into `online_grocerystore_management_system`.`cart` VALUES (8,403,1);
@@ -168,7 +168,7 @@ INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	13,'Hald
 
 INSERT into `online_grocerystore_management_system`.`delivery_executive` VALUES (1,'Vijay','9823787645','Aadhar Card','635284333347',4.6);
 INSERT into `online_grocerystore_management_system`.`delivery_executive` VALUES (2,'Ramesh','886343679','Aadhar Card','630425678870',4.1);
-INSERT into `online_grocerystore_management_system`.`delivery_executive` VALUES (3,'John','8434537645','Aadhar Number','987356490081',3.9);
+INSERT into `online_grocerystore_management_system`.`delivery_executive` VALUES (3,'John','8434537645','Aadhar Number','007',3.9);
 INSERT into `online_grocerystore_management_system`.`delivery_executive` VALUES (4,'Alex','8939911645','Aadhar Number','392903203810',4.9);
 INSERT into `online_grocerystore_management_system`.`delivery_executive` VALUES (5,'Akshat','9986622475','Aadhar Number','445798723345',4.2);
 INSERT into `online_grocerystore_management_system`.`delivery_executive` VALUES (6,'Khushwat','9823787645','Aadhar Number','546592230973',4.3);
@@ -198,15 +198,14 @@ INSERT into `online_grocerystore_management_system`.`customer` VALUES (8,'Utkars
 INSERT into `online_grocerystore_management_system`.`customer` VALUES (9,'Piyush123','0123','Piyush','Aggarwal','Block 3 Flat Number 128','Vijay Nagar', 'Delhi', 110038,'8990361370',91, 500000, '2019-09-21 10:20:51');
 INSERT into `online_grocerystore_management_system`.`customer` VALUES (10,'Anmol123','0123','Vishal','Yadav','Block * Flat Number 32C','Greater Kailash-2', 'Delhi', 110088,'9800367037',91, 500000, '2019-11-28 09:23:01');
 
-INSERT into `online_grocerystore_management_system`.`orders` VALUES (01,5,'Order Placed','Block C Flat Number 36A','Lodhi Road,Delhi', 110065,'India',7,'2020-02-01 17:00:01' );
-INSERT into `online_grocerystore_management_system`.`orders` VALUES (02,2,'Shipping','Sector 8 Flat Number 109','Noida', 110083,'India',5,'2020-01-11 18:10:31' );
-INSERT into `online_grocerystore_management_system`.`orders` VALUES (03,7,'Delievered','Phase II Residents Colony Flat Number 41A','Oakhla', 110025,'India',1,'2020-02-01 17:00:01' );
-INSERT into `online_grocerystore_management_system`.`orders` VALUES (04,9,'Order Placed','Block 3 Flat Number 128','Vijay Nagar', 110083,'India',2,'2020-02-01 17:00:01' );
-INSERT into `online_grocerystore_management_system`.`orders` VALUES (05,1,'Shipping','Block F Flat Number 24','Greater Kailash', 110087,'India',3,'2020-02-01 17:00:01' );
-INSERT into `online_grocerystore_management_system`.`orders` VALUES (06,3,'Delievered','Block c Flat Number 29','Kailash Colony', 110007,'India',4,'2020-02-01 17:00:01' );
-INSERT into `online_grocerystore_management_system`.`orders` VALUES (07,4,'Order Placed','Sector 2 Flat Number 7','Noida', 110083,'India',8,'2020-02-01 17:00:01' );
-INSERT into `online_grocerystore_management_system`.`orders` VALUES (08,8,'Delievered','Block G Flat Number 79','Nre Friends Colony', 110075,'India',3,'2020-02-01 17:00:01' );
-select * from orders;
+INSERT into `online_grocerystore_management_system`.`orders` VALUES (1,5,'Order Placed','Block C Flat Number 36A','Lodhi Road,Delhi', 110065,'India',7,'2020-02-01 17:00:01' );
+INSERT into `online_grocerystore_management_system`.`orders` VALUES (2,2,'Shipping','Sector 8 Flat Number 109','Noida', 110083,'India',5,'2020-01-11 18:10:31' );
+INSERT into `online_grocerystore_management_system`.`orders` VALUES (3,7,'Delievered','Phase II Residents Colony Flat Number 41A','Oakhla', 110025,'India',1,'2020-02-01 17:00:01' );
+INSERT into `online_grocerystore_management_system`.`orders` VALUES (4,9,'Order Placed','Block 3 Flat Number 128','Vijay Nagar', 110083,'India',2,'2020-02-01 17:00:01' );
+INSERT into `online_grocerystore_management_system`.`orders` VALUES (5,1,'Shipping','Block F Flat Number 24','Greater Kailash', 110087,'India',3,'2020-02-01 17:00:01' );
+INSERT into `online_grocerystore_management_system`.`orders` VALUES (6,3,'Delievered','Block c Flat Number 29','Kailash Colony', 110007,'India',4,'2020-02-01 17:00:01' );
+INSERT into `online_grocerystore_management_system`.`orders` VALUES (7,4,'Order Placed','Sector 2 Flat Number 7','Noida', 110083,'India',8,'2020-02-01 17:00:01' );
+INSERT into `online_grocerystore_management_system`.`orders` VALUES (8,8,'Delievered','Block G Flat Number 79','Nre Friends Colony', 110075,'India',3,'2020-02-01 17:00:01' );
 
 INSERT into `online_grocerystore_management_system`.`products` VALUES (	1,'Harvest Gold: 100% whole wheat',1,30,6,'2020-01-01 10:10:10',2,'4.2');
 INSERT into `online_grocerystore_management_system`.`products` VALUES (	2,'Harvest Gold Sandwich Bread',1,50,16,'2020-01-01 12:10:10',2,'4.6');
@@ -253,14 +252,14 @@ INSERT into `online_grocerystore_management_system`.`products` VALUES (	42,'Beet
 INSERT into `online_grocerystore_management_system`.`products` VALUES (	43,'TAJ Mahal: Brooke Bond Taj Mahal Tea(1 kg)',10,403,20,'2020-01-28 08:03:51',1,'4.3');
 INSERT into `online_grocerystore_management_system`.`products` VALUES (	44,'TAJ Mahal: Gold Tea(1 kg)',10,450,20,'2020-01-28 09:33:51',1,'3.9');
 
-INSERT into `online_grocerystore_management_system`.`order_items` VALUES (01,19,2,198,0,198);
-INSERT into `online_grocerystore_management_system`.`order_items` VALUES (02,1,2,60,0,60);
-INSERT into `online_grocerystore_management_system`.`order_items` VALUES (03,29,3,300,0,300);
-INSERT into `online_grocerystore_management_system`.`order_items` VALUES (04,32,2,80,0,198);
-INSERT into `online_grocerystore_management_system`.`order_items` VALUES (05,41,8,568,0,568);
-INSERT into `online_grocerystore_management_system`.`order_items` VALUES (06,6,6,600,0,600);
-INSERT into `online_grocerystore_management_system`.`order_items` VALUES (07,8,1,100,0,100);
-INSERT into `online_grocerystore_management_system`.`order_items` VALUES (08,9,2,600,10,590);
+INSERT into `online_grocerystore_management_system`.`order_items` VALUES (1,19,2,198,0,198);
+INSERT into `online_grocerystore_management_system`.`order_items` VALUES (2,1,2,60,0,60);
+INSERT into `online_grocerystore_management_system`.`order_items` VALUES (3,29,3,300,0,300);
+INSERT into `online_grocerystore_management_system`.`order_items` VALUES (4,32,2,80,0,198);
+INSERT into `online_grocerystore_management_system`.`order_items` VALUES (5,41,8,568,0,568);
+INSERT into `online_grocerystore_management_system`.`order_items` VALUES (6,6,6,600,0,600);
+INSERT into `online_grocerystore_management_system`.`order_items` VALUES (7,8,1,100,0,100);
+INSERT into `online_grocerystore_management_system`.`order_items` VALUES (8,9,2,600,10,590);
 
 # add foreign keys 
 ALTER TABLE `online_grocerystore_management_system`.`feedback` 
