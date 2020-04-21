@@ -48,7 +48,7 @@ CREATE TABLE `online_grocerystore_management_system`.`feedback` (
   PRIMARY KEY (`supplier_id`));
   
   CREATE TABLE `online_grocerystore_management_system`.`delivery_executive` (
-  `delivery_executive_id` INT NOT NULL,
+  `delivery_executive_id` INT NOT NULL AUTO_INCREMENT,
   `delivery_executive_name` VARCHAR(45) NULL,
   `delivery_executive_phone` VARCHAR(15) NOT NULL,
   `photo_id_type` VARCHAR(15) NULL,
