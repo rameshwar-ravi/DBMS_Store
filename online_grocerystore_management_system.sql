@@ -152,18 +152,18 @@ INSERT into `online_grocerystore_management_system`.`feedback` VALUES (4,9,8,8,1
 INSERT into `online_grocerystore_management_system`.`feedback` VALUES (5,4,32,11,2,5,3,4.5,'2020-02-03 10:07:31');
 
 
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	1,'Harvest Gold',110087,'9823787645',+91,4.6);
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	2,'Glucon-D',110031,'8867587679',+91,4.1);
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	3,'Real Juice',110067,'7834537645',+91,3.9);
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	4,'Beer',110008,'8939911645',+91,4.9);
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	5,'Cookies',110011,'9986622475',+91,4.2);
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	6,'Origami',110057,'9823787645',+91,4.3);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	1,'Harold',110087,'9823787645',+91,4.6);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	2,'Kumar',110031,'8867587679',+91,4.1);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	3,'Tom',110067,'7834537645',+91,3.9);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	4,'Joey',110008,'8939911645',+91,4.9);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	5,'Christopher',110011,'9986622475',+91,4.2);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	6,'Chan',110057,'9823787645',+91,4.3);
 INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	7,'Liao',110053,'9823993321',+91,4.6);
 INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	8,'Fresho',110031,'9822649221',+91,4.1);
 INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	9,'Beeta',110085,'9823832901',+91,4.4);
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	10,'TAJ',110013,'9804932321',+91,4.3);
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	11,'UNIBIC',110049,'9823993321',+91,4.0);
-INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	12,'Parle',110010,'8329399321',+91,4.1);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	10,'Nestle',110013,'9804932321',+91,4.3);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	11,'Cadbury',110049,'9823993321',+91,4.0);
+INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	12,'Palmolive',110010,'8329399321',+91,4.1);
 INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	13,'Haldiram',110006,'9893830321',+91,4.1);
 
 INSERT into `online_grocerystore_management_system`.`delivery_executive` VALUES (1,'Vijay','9823787645','Aadhar Card','635284333347',4.6);

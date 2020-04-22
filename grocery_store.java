@@ -7,17 +7,23 @@ public class grocery_store {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		Mysql_connection mysql_conn=new Mysql_connection();
-		Connection con=mysql_conn.conn("root", "password");
-		System.out.println("welcome to amazon store");
-		System.out.println("enter as \n press 1 for admin \n press 2 for customer \n "
+		Connection con=mysql_conn.conn("root", "jayantj1j");
+		System.out.println("Welcome to amazon store");
+		System.out.println("Enter as \n press 1 for admin \n press 2 for customer \n "
 				+ "press 3 for delivery executive \n press 4 for Supplier");
-		System.out.println("want to exit press 0");
+		System.out.println("Want to exit press 0");
 		int input1=sc.nextInt();
 		int flag=0;
 		if(input1==2) flag=2;
 		if(input1==3) flag=3;
+		if(input1==4) flag=4;
 
 		while(true && flag!=0) {
+			//admin left
+			
+			
+			
+			/////consumer part
 			if(flag==2) {
 				boolean loggedin=false;
 				Consumer customer=new Consumer();
@@ -134,7 +140,7 @@ public class grocery_store {
 					System.out.println("press 0 know my current details \n "
 							+ "press 1 to view your current pending orders \n "
 							+ "press 2 to view details of your order(using order_ID) \n"
-							
+
 							+ "press 3 to update your details "
 							+ "or 0 to exit");
 
@@ -166,6 +172,56 @@ public class grocery_store {
 				catch(Exception e){
 					System.out.println(e);
 				}
+				
+			}
+			// supplier part
+			else if(flag==4) {
+				try {
+					System.out.println("Want to proceed press 1 else press 0 to exit");
+					int hh=sc.nextInt();
+					if(hh==0) break;
+					int sup_id=0;
+					Supplier sup=new Supplier();
+					int flag1=1;int reg=-1;
+					while(flag1==1) {
+						reg=sup.supplier_login(con);
+						if(reg==0) {
+							System.out.println("wrong id entered");
+							System.out.println("press 0 to exit supplier or 1 to try again");
+							int ex=sc.nextInt();
+							if(ex==0) return; 
+							else continue; 
+						}
+						else {
+							System.out.println("log in successful");
+							sup_id=reg;
+							flag1=2;
+						}
+					}
+
+					System.out.println();
+				if(flag1==2)
+				System.out.println("Press 0 to know your supplied products details \n ");
+				System.out.println("Press 1 to know your details & rating \n ");
+
+					int item_flag=sc.nextInt();
+
+					if(item_flag==0 && flag1==2) {
+						sup.supplier_showresult(con,Integer.toString(sup_id),1);
+						
+					}
+					else if(item_flag==1 && flag1==2) {
+						sup.supplier_showresult(con,Integer.toString(sup_id),44);
+						
+					}
+
+				}
+
+				catch(Exception e){
+					System.out.println("An error occured..Try sometime later");
+					System.out.println(e);
+				}
+
 			}
 			else {
 				break;
