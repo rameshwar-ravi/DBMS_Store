@@ -13,9 +13,12 @@ public class Supplier {
 		try {
 			Statement stmt=con.createStatement(); 
 			try {
+				System.out.println("************");
+				System.out.println("Welcome Supplier");
+
 				System.out.println("Enter your supplier id:");
 				String loginid=sc.next();
-
+				System.out.println("------------");
 				ResultSet rs=stmt.executeQuery("select * from supplier where supplier_id='"+loginid+"'");
 				boolean isnotEmpty = rs.first();
 				if(isnotEmpty) {
@@ -71,32 +74,31 @@ public class Supplier {
 				{
 					ResultSet rs=stmt.executeQuery("select product_name,product_price,quantity_available,product_rating from products where supplier_id=" +  supplier );
 					while(rs.next()) {
-						System.out.println();
-						System.out.println("Product:"+rs.getString("product_name"));
+						System.out.println("*************");
+						System.out.println(" Product:"+rs.getString("product_name"));
 						System.out.println(" Price:" + rs.getString("product_price"));
 						System.out.println(" Quantity available:" + rs.getString("quantity_available"));
 						System.out.println(" Product Rating:" + rs.getString("product_rating"));
-						System.out.println("---------");
+						System.out.println("------------");
 					}
 					return 1;
 				}
 				else if(flag==44) {
 					try {
 
-						System.out.println("Your details");
+						System.out.println("Your details--");
+						System.out.println("*************");
 						ResultSet rs=stmt.executeQuery("Select supplier_id,supplier_name, contact_number,"
 								+ "supplier_rating, contact_number,country_code "
 								+ "from supplier where supplier_id=" +  supplier);
 						while(rs.next()) {
-							System.out.println();
+							System.out.println("------------");
 							System.out.println(" Login ID:" + rs.getString("supplier_id"));
-							System.out.print("Name:" + rs.getString("supplier_name") );
+							System.out.println(" Name:" + rs.getString("supplier_name") );
 							System.out.println(" Contact:"+rs.getString("contact_number"));
 							System.out.println(" Country code: " + rs.getString("country_code"));
 							
-							
-							
-							System.out.print("Rating:" + rs.getString("supplier_rating") );
+							System.out.println(" Rating:" + rs.getString("supplier_rating") );
 							System.out.println();
 
 						}
