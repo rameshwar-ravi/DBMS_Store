@@ -1,9 +1,11 @@
-package Connection;
+//package Connection;
 import java.sql.*;
 import java.util.*;
 public class Consumer {
 	Scanner sc=new Scanner(System.in);
 	int customer_id=18;int order_id=15;int productcount=0;int cost=0;
+	int count1=0;
+	//customer login function
 	public int customer_login(Connection con) {
 		try {
 			Statement stmt=con.createStatement(); 
@@ -58,6 +60,7 @@ public class Consumer {
 			}
 			catch(Exception e) {
 				System.out.println(e);
+				return 0;
 			}
 		}
 		catch(Exception e) {
@@ -68,6 +71,7 @@ public class Consumer {
 	public int showresult(Connection con,int flag) {
 		try {
 			Statement stmt=con.createStatement(); 
+			// flag== for showing all the products
 			try {
 				if(flag==1) {
 					ResultSet rs=stmt.executeQuery("select product_name,product_price,product_rating from products where quantity_available>0" );
@@ -76,9 +80,14 @@ public class Consumer {
 					}
 					return 1;
 				}
+				//flag==2 for showing products by category
 				else if(flag==2) {
+					if(count1==0) {
+						sc.nextLine();
+						count1++;
+					}
 					System.out.println("please eneter the category");
-					String category=sc.nextLine().trim();
+					String category=sc.nextLine();
 					System.out.println(category);
 					ResultSet rs=stmt.executeQuery("select p.product_name,p.product_price,p.product_rating,c.category_name from products as p,categories as c where p.quantity_available>0 and p.category_id=c.category_id and c.category_name='"+category+"'");
 					while(rs.next()) {
@@ -87,6 +96,7 @@ public class Consumer {
 					stmt.close();
 					return 1;
 				}
+				// flag==3 shows all the categories available
 				else if(flag==3) {
 					ResultSet rs=stmt.executeQuery("select category_name from categories");
 					while(rs.next()) {
@@ -95,18 +105,25 @@ public class Consumer {
 					stmt.close();
 					return 1;
 				}
+				// flag==4 allows user to search particular product and add to cart
 				else if(flag==4) {
 						System.out.println("Search for product and add to cart");
-						String prod1=sc.nextLine();
+						if(count1==0) {
+							String prod1=sc.nextLine();
+							count1++;
+						}
 						String prod=sc.nextLine();
 						System.out.println("you entered "+prod);
 						ResultSet rs1=stmt.executeQuery("select count(*) from orders");
 						while(rs1.next()) {
-							order_id=rs1.getInt(1)+1;
+							order_id=rs1.getInt(1)+1;// this tracks the order_id for a particular order
 						}
 						productcount++;
 						ResultSet rs=stmt.executeQuery("select product_name,product_price,product_rating,quantity_available,product_id from products where product_name='"+prod+"'");
-						System.out.println(rs.first()) ;
+						if(!rs.first()) {
+							System.out.println("Sorry no product with this name");
+							return 0;
+						}
 						int product_price=rs.getInt("product_price");
 						int product_id=rs.getInt("product_id");
 						System.out.println("product "+rs.getString("product_name")+" price  "+Integer.toString(product_price)+" ratings "+rs.getString("product_rating"));
@@ -117,28 +134,22 @@ public class Consumer {
 							System.out.println("quantity, please put less than "+quantity_available);
 							int k=sc.nextInt();
 							if(k>quantity_available) {
-								System.out.println("not available");
+								System.out.println("not available");// return if input quantity is less than the available quantity
 								return 0;
 							}
 							
 							int price=product_price*k;
 							cost+=price;
-							System.out.println(cost);
 							String pr=Integer.toString(price);
-							
-							System.out.println(order_id);
 							stmt.executeUpdate("INSERT INTO order_items VALUES ("+Integer.toString(order_id)+","+Integer.toString(product_id)+","+Integer.toString(k)+","+pr+","+"0"+","+pr+")" );
-							System.out.println("hi");
 							String qu="UPDATE products SET quantity_available ="+Integer.toString(quantity_available-k)+" WHERE product_name='"+prod+"'";
 							stmt.executeUpdate(qu);
-							System.out.println("hi1");
 						}
 						System.out.println("finish order yes/no");
 						String inp1=sc.next();
 						if(inp1.equals("yes")) {
 							order_id++;
 							stmt.executeUpdate("INSERT INTO orders (customer_id) VALUES ("+Integer.toString(customer_id)+")");
-							System.out.println(cost+" "+productcount+"hi");
 							stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(cost)+","+Integer.toString(productcount)+")");
 							productcount=0;cost=0;
 							
@@ -146,6 +157,7 @@ public class Consumer {
 						}
 						return 1;
 					}
+				// flag==5 is for checking out the cart
 				if(flag==5) {
 					ResultSet rs=stmt.executeQuery("SELECT sum(total_amount),sum(number_of_products) FROM cart where customer_id="+Integer.toString(customer_id));
 					int totc=0;
@@ -165,16 +177,21 @@ public class Consumer {
 					}
 					else return 1;
 				}
+				//flag 7 is to submit product rating
 				if(flag==7) {
 					String cust_id=Integer.toString(customer_id);
-					String q="SELECT p.product_name from orders as o,order_items as od,products as p where o.customer_id="+cust_id +" and od.order_id=o.order_id and p.product_id=od.product_id";
+					String q="SELECT distinct(p.product_name) from orders as o,order_items as od,products as p where o.customer_id="+cust_id +" and od.order_id=o.order_id and p.product_id=od.product_id";
 					ResultSet rs=stmt.executeQuery(q);
-					
+					// shows all the products previously ordered
+					System.out.println("previously ordered items");
 					while(rs.next()) {
 						System.out.println("product "+rs.getString("p.product_name"));
 						}
 					System.out.print("submit the name of the products to rate:");
-					sc.nextLine();
+					if(count1==0) {
+						sc.nextLine();
+						count1++;
+					}
 					String prod=sc.nextLine();
 					System.out.println("enter rating between 0 to 5");
 					int ratings=sc.nextInt();
@@ -205,5 +222,3 @@ public class Consumer {
 		return 0;
 	}
 }
-/*(String loginid,String password,String fname,String lname,
- * String address1,String address2,String city,int pintcode,String contact,String countrycode,String credit_limit,String joined_at) */
