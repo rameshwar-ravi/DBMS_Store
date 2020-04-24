@@ -12,10 +12,13 @@ public class Delivery_Executive {
 		try {
 			Statement stmt=con.createStatement(); 
 			try {
-				System.out.println("Enter login id:");
+				System.out.println("************");
+				System.out.println("Welcome Delivery Executive");
+				System.out.println("Enter delivery_login_id: ");
 		String loginid=sc.next();
 		System.out.println("Enter Password:");
 		String password=sc.next();
+		System.out.println("************");
 		ResultSet rs=stmt.executeQuery("select * from delivery_executive where delivery_executive_id='"+loginid+"'"+ "and photo_id_number='"+password+"'");
 
 		boolean isnotEmpty = rs.first();
@@ -45,14 +48,14 @@ public void show_details(Connection con,int delivery){
 			+ " photo_id_type, photo_id_number, rating, delivery_executive_id, photo_id_number "
 			+ "from delivery_executive where delivery_executive_id = " +Integer.toString(delivery));
 	while(rs.next()) {
-		System.out.println();
-		System.out.print("Name:" + rs.getString("delivery_executive_name") );
-		System.out.print(" Contact:"+rs.getString("delivery_executive_phone"));
-		System.out.print(" Photo ID type:" + rs.getString("photo_id_type"));
-		System.out.println(" Photo ID number:" + rs.getString("photo_id_number"));
-		System.out.print(" Login ID:" + rs.getString("delivery_executive_id"));
-		System.out.print(" Password:" + rs.getString("photo_id_number"));
-		System.out.print("Rating:" + rs.getString("rating") );
+		System.out.println("*************");
+		System.out.print(" Name: " + rs.getString("delivery_executive_name") );
+		System.out.println(" Contact: "+rs.getString("delivery_executive_phone"));
+		System.out.println(" Photo ID type: " + rs.getString("photo_id_type"));
+		System.out.println(" Photo ID number: " + rs.getString("photo_id_number"));
+		System.out.println(" Login ID: " + rs.getString("delivery_executive_id"));
+		System.out.println(" Password: " + rs.getString("photo_id_number"));
+		System.out.println(" Rating: " + rs.getString("rating") );
 			System.out.println();
 
 		}
@@ -101,12 +104,12 @@ public int delivery_executive_showresult(Connection con, String delivery, int fl
 			boolean check=rs.first();
 			if(check) {
 				do {
-					System.out.println();
-					System.out.println("Order ID:"+rs.getString("A.order_id"));
-					System.out.print(" Customer Name:" + rs.getString("B.first_name"));
-					System.out.print(" Order Status:" + rs.getString("A.status"));
-					System.out.print(" Address:" + rs.getString("A.order_ship_address_line1") + rs.getString("A.order_ship_address_line2"));
-					System.out.println();
+					System.out.println("************");
+					System.out.println("Order ID: "+rs.getString("A.order_id"));
+					System.out.println("Customer Name: " + rs.getString("B.first_name"));
+					System.out.println("Order Status: " + rs.getString("A.status"));
+					System.out.println("Address: " + rs.getString("A.order_ship_address_line1") + rs.getString("A.order_ship_address_line2"));
+					System.out.println("--------------");
 				}while(rs.next());
 			}
 			else {
@@ -118,7 +121,7 @@ public int delivery_executive_showresult(Connection con, String delivery, int fl
 		{
 
 			try{
-				System.out.println("Please enter an orderID)");
+				System.out.println("Please enter an orderID :) ");
 				int order=sc.nextInt();
 				ResultSet rs = stmt.executeQuery("Select A.order_id, C.first_name, C.contact, "
 						+ "A.order_ship_address_line1, A.order_ship_address_line2, A.order_ship_city_pincode, "
@@ -131,18 +134,18 @@ public int delivery_executive_showresult(Connection con, String delivery, int fl
 					System.out.println(rs.first());
 				
 				do {
-					System.out.println();
-					System.out.println("Order ID:"+rs.getString("A.order_id"));
-					System.out.print(" Customer Name:" + rs.getString("C.first_name"));
-					System.out.print(" Customer contact:" + rs.getString("C.contact"));
-					System.out.print(" Address:" + rs.getString("A.order_ship_address_line1") + 
+					System.out.println("************");
+					System.out.println("Order ID: "+rs.getString("A.order_id"));
+					System.out.println("Customer Name: " + rs.getString("C.first_name"));
+					System.out.println("Customer contact: " + rs.getString("C.contact"));
+					System.out.println("Address: " + rs.getString("A.order_ship_address_line1") + 
 							rs.getString("A.order_ship_address_line2") + rs.getString("A.order_ship_city_pincode") + rs.getString("A.order_ship_country"));
-					System.out.println("Product ID:"+rs.getString("B.product_id"));
-					System.out.print("Quantity:"+rs.getString("B.quantity"));
-					System.out.print("Sum total:"+rs.getString("B.sum_total"));
-					System.out.println("Payment Mode:"+rs.getString("D.payment_mode"));
-					System.out.println("Paid( 1 for yes, 0 for no:"+rs.getString("D.paid"));
-					System.out.println();
+					System.out.println("Product ID: "+rs.getString("B.product_id"));
+					System.out.println("Quantity: "+rs.getString("B.quantity"));
+					System.out.println("Sum total: "+rs.getString("B.sum_total"));
+					System.out.println("Payment Mode: "+rs.getString("D.payment_mode"));
+					System.out.println("Paid ( 1 for yes, 0 for no:)-> "+rs.getString("D.paid"));
+					System.out.println("--------------");
 				}while(rs.next());
 				
 				return 1;
@@ -156,8 +159,9 @@ public int delivery_executive_showresult(Connection con, String delivery, int fl
 		else if(flag==3) //Update your information
 		{
 			System.out.println("Your current details");
+			System.out.println("************");
 			show_details(con, Integer.parseInt(delivery));
-			
+			System.out.println("--------------");
 
 			System.out.println("Press 1 to change your name");
 			System.out.println("Press 2 to change your contact");
@@ -167,14 +171,14 @@ public int delivery_executive_showresult(Connection con, String delivery, int fl
 
 			int choice=sc.nextInt();
 			if(choice==1)
-			{
+			{	System.out.println("--------------");
 				System.out.println("Enter new name: ");
 				String update=sc.next();
 				stmt.executeUpdate("Update delivery_executive set delivery_executive_name='" + update +"'"+"where delivery_executive_id='"+delivery+"'");
 
 			}
 			else if(choice==2)
-			{
+			{	System.out.println("--------------");
 				System.out.println("Enter new contact: ");
 				String update=sc.next();
 				stmt.executeUpdate("Update delivery_executive set delivery_executive_phone='" + update +"'"+ "where delivery_executive_id='"+delivery+"'");
@@ -184,7 +188,7 @@ public int delivery_executive_showresult(Connection con, String delivery, int fl
 			else if(choice==5)
 			{
 				ResultSet rs=stmt.executeQuery("Select MAX(delivery_executive_id) from delivery_executive");
-				
+				System.out.println("--------------");
 				System.out.println("Set value greater than "+rs.getString(1));
 				System.out.println("Enter new loginID: ");
 				String update=sc.next();
