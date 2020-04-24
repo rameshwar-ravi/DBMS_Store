@@ -1,4 +1,4 @@
-//package Connection;
+package Connection;
 import java.sql.*;
 import java.util.*;
 public class Consumer {
@@ -10,10 +10,12 @@ public class Consumer {
 		try {
 			Statement stmt=con.createStatement(); 
 			try {
+				System.out.println("--------------------------------------------------------------");
 				System.out.println("Enter login id:");
 				String loginid=sc.next();
 				System.out.println("Enter Password:");
 				String password=sc.next();
+				System.out.println("--------------------------------------------------------------");
 				ResultSet rs=stmt.executeQuery("select * from customer where login_id='"+loginid+"'"+ "and login_password='"+password+"'");
 				boolean isnotEmpty = rs.first();
 				if(isnotEmpty) {
@@ -33,17 +35,22 @@ public class Consumer {
 		return 0;
 	}
 	public int customer_register(Connection con){
+		System.out.println("***********************************");
 		System.out.print("Enter your login_id");String loginid=sc.next();System.out.println();
 		System.out.print("Enter your password");String password=sc.next();System.out.println();
+		System.out.println("--------------------------------------------------------------");
 		System.out.print("Enter your first name");String fname=sc.next();System.out.println();
 		System.out.print("Enter your lastname");String lname=sc.next();System.out.println();
+		System.out.println("--------------------------------------------------------------");
 		System.out.print("Enter your address line1");String address1=sc.next();System.out.println();
 		System.out.print("Enter your address line2");String address2=sc.next();System.out.println();
+		System.out.println("--------------------------------------------------------------");
 		System.out.print("Enter your city");String city=sc.next();System.out.println();
 		System.out.print("Enter your pincode");String pincode=sc.next();System.out.println();
 		System.out.print("Enter your contact");String contact=sc.next();System.out.println();
 		System.out.print("Enter your country code");String concode=sc.next();System.out.println();
 		System.out.print("Enter your creditlimit");String creditlimit=sc.next();System.out.println();
+		System.out.println("***********************************");
 		try {
 			Statement stmt=con.createStatement(); 
 			try {
@@ -71,12 +78,14 @@ public class Consumer {
 	public int showresult(Connection con,int flag) {
 		try {
 			Statement stmt=con.createStatement(); 
-			// flag== for showing all the products
+			// flag==1 for showing all the products
 			try {
 				if(flag==1) {
+					System.out.println("--------------------------------------------------------------");
 					ResultSet rs=stmt.executeQuery("select product_name,product_price,product_rating from products where quantity_available>0" );
 					while(rs.next()) {
-						System.out.println("product"+rs.getString("product_name")+"price  "+rs.getString("product_price")+"ratings "+rs.getString("product_rating"));
+						System.out.println("product "+rs.getString("product_name")+" price  "+rs.getString("product_price")+" ratings "+rs.getString("product_rating"));
+						System.out.println("--------------------------------------------------------------");
 					}
 					return 1;
 				}
@@ -86,12 +95,14 @@ public class Consumer {
 						sc.nextLine();
 						count1++;
 					}
-					System.out.println("please eneter the category");
+					System.out.println("please enter the category");
 					String category=sc.nextLine();
 					System.out.println(category);
+					
 					ResultSet rs=stmt.executeQuery("select p.product_name,p.product_price,p.product_rating,c.category_name from products as p,categories as c where p.quantity_available>0 and p.category_id=c.category_id and c.category_name='"+category+"'");
 					while(rs.next()) {
 						System.out.println("product "+rs.getString("p.product_name")+" price  "+rs.getString("p.product_price")+" ratings "+rs.getString("p.product_rating")+" category "+rs.getString("c.category_name"));
+						System.out.println("--------------------------------------------------------------");
 					}
 					stmt.close();
 					return 1;
@@ -99,8 +110,10 @@ public class Consumer {
 				// flag==3 shows all the categories available
 				else if(flag==3) {
 					ResultSet rs=stmt.executeQuery("select category_name from categories");
+					System.out.println("--------------------------------------------------------------");
 					while(rs.next()) {
 						System.out.println(rs.getString("category_name"));
+						System.out.println("--------------------------------------------------------------");
 					}
 					stmt.close();
 					return 1;
@@ -113,7 +126,8 @@ public class Consumer {
 							count1++;
 						}
 						String prod=sc.nextLine();
-						System.out.println("you entered "+prod);
+						System.out.println("you entered ==> "+prod);
+						System.out.println("--------------------------------------------------------------");
 						ResultSet rs1=stmt.executeQuery("select count(*) from orders");
 						while(rs1.next()) {
 							order_id=rs1.getInt(1)+1;// this tracks the order_id for a particular order
@@ -121,20 +135,22 @@ public class Consumer {
 						productcount++;
 						ResultSet rs=stmt.executeQuery("select product_name,product_price,product_rating,quantity_available,product_id from products where product_name='"+prod+"'");
 						if(!rs.first()) {
-							System.out.println("Sorry no product with this name");
+							System.out.println("*********Sorry no product with this name try again************");
 							return 0;
 						}
 						int product_price=rs.getInt("product_price");
 						int product_id=rs.getInt("product_id");
 						System.out.println("product "+rs.getString("product_name")+" price  "+Integer.toString(product_price)+" ratings "+rs.getString("product_rating"));
+						System.out.println("--------------------------------------------------------------");
 						System.out.println("want to add this product to cart yes/no");
 						String input=sc.next();
+						System.out.println("--------------------------------------------------------------");
 						if(input.equals("yes")) {
 							int quantity_available=rs.getInt(4);
 							System.out.println("quantity, please put less than "+quantity_available);
 							int k=sc.nextInt();
 							if(k>quantity_available) {
-								System.out.println("not available");// return if input quantity is less than the available quantity
+								System.out.println("********please enter less than quantity availbale********");// return if input quantity is less than the available quantity
 								return 0;
 							}
 							
@@ -146,6 +162,7 @@ public class Consumer {
 							stmt.executeUpdate(qu);
 						}
 						System.out.println("finish order yes/no");
+						System.out.println("--------------------------------------------------------------");
 						String inp1=sc.next();
 						if(inp1.equals("yes")) {
 							order_id++;
@@ -171,8 +188,9 @@ public class Consumer {
 					}
 					System.out.println("checkout yes/no");
 					String yn=sc.next();
+					System.out.println("--------------------------------------------------------------");
 					if(yn.equals("yes")) {
-						System.out.println("order placed successfully");
+						System.out.println("+++++++order placed successfully++++++++++++");
 						stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(-totc)+","+Integer.toString(-totp)+")");
 					}
 					else return 1;
@@ -182,11 +200,12 @@ public class Consumer {
 					String cust_id=Integer.toString(customer_id);
 					String q="SELECT distinct(p.product_name) from orders as o,order_items as od,products as p where o.customer_id="+cust_id +" and od.order_id=o.order_id and p.product_id=od.product_id";
 					ResultSet rs=stmt.executeQuery(q);
-					// shows all the products previously ordered
+					// shows all previously ordered products
 					System.out.println("previously ordered items");
 					while(rs.next()) {
 						System.out.println("product "+rs.getString("p.product_name"));
 						}
+					System.out.println("--------------------------------------------------------------");
 					System.out.print("submit the name of the products to rate:");
 					if(count1==0) {
 						sc.nextLine();
@@ -195,19 +214,16 @@ public class Consumer {
 					String prod=sc.nextLine();
 					System.out.println("enter rating between 0 to 5");
 					int ratings=sc.nextInt();
-					System.out.println("hi");
-					System.out.println(prod);
 					rs=stmt.executeQuery("SELECT product_id from products where product_name='"+prod+"'");
 					int p_id=0;
 					while(rs.next()) {
 						p_id=rs.getInt(1);
 					}
-					
-					System.out.println("("+cust_id+","+Integer.toString(p_id)+","+Integer.toString(p_id)+")");
-					
 					String q1="INSERT INTO feedback (customer_id,product_id,product_rating) VALUES ("+cust_id+","+Integer.toString(p_id)+","+Integer.toString(ratings)+")";
 					stmt.executeUpdate(q1);
 					stmt.close();
+					System.out.println("--------------------------------------------------------------");
+					System.out.println("feedback submitted successfully");
 					return 1;
 				}
 				
