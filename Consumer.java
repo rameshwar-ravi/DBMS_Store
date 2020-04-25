@@ -176,14 +176,16 @@ public class Consumer {
 							int del_id = rand.nextInt(del); 
 							String del_exec=Integer.toString(del_id++);
 							order_id++;// just to debug variable
-							System.out.println("Please enter order address=====>");
+							System.out.println("Please enter order address===>");
 							sc.nextLine();
-							System.out.println("address_line_1");
+							System.out.println("Address_line_1: ");
 							String address1=sc.nextLine();
-							System.out.println("address_line_2");
+							System.out.println("Address_line_2: ");
 							String address2=sc.nextLine();
-							System.out.println("pincode");
+							System.out.println("Aincode: ");
 							String pincode=sc.nextLine();
+							System.out.println();
+							System.out.println("Order placed Successfully!");
 							java.util.Date javaDate = new java.util.Date();
 							long javaTime = javaDate.getTime();
 							java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(javaTime);
