@@ -36,20 +36,20 @@ public class Consumer {
 	}
 	public int customer_register(Connection con){
 		System.out.println("***********************************");
-		System.out.print("Enter your login_id");String loginid=sc.next();System.out.println();
-		System.out.print("Enter your password");String password=sc.next();System.out.println();
+		System.out.print("Enter your login_id");String loginid=sc.nextLine();System.out.println();
+		System.out.print("Enter your password");String password=sc.nextLine();System.out.println();
 		System.out.println("--------------------------------------------------------------");
-		System.out.print("Enter your first name");String fname=sc.next();System.out.println();
-		System.out.print("Enter your lastname");String lname=sc.next();System.out.println();
+		System.out.print("Enter your first name");String fname=sc.nextLine();System.out.println();
+		System.out.print("Enter your lastname");String lname=sc.nextLine();System.out.println();
 		System.out.println("--------------------------------------------------------------");
-		System.out.print("Enter your address line1");String address1=sc.next();System.out.println();
-		System.out.print("Enter your address line2");String address2=sc.next();System.out.println();
+		System.out.print("Enter your address line1");String address1=sc.nextLine();System.out.println();
+		System.out.print("Enter your address line2");String address2=sc.nextLine();System.out.println();
 		System.out.println("--------------------------------------------------------------");
-		System.out.print("Enter your city");String city=sc.next();System.out.println();
-		System.out.print("Enter your pincode");String pincode=sc.next();System.out.println();
-		System.out.print("Enter your contact");String contact=sc.next();System.out.println();
-		System.out.print("Enter your country code");String concode=sc.next();System.out.println();
-		System.out.print("Enter your creditlimit");String creditlimit=sc.next();System.out.println();
+		System.out.print("Enter your city");String city=sc.nextLine();System.out.println();
+		System.out.print("Enter your pincode");String pincode=sc.nextLine();System.out.println();
+		System.out.print("Enter your contact");String contact=sc.nextLine();System.out.println();
+		System.out.print("Enter your country code");String concode=sc.nextLine();System.out.println();
+		System.out.print("Enter your creditlimit");String creditlimit=sc.nextLine();System.out.println();
 		System.out.println("***********************************");
 		try {
 			Statement stmt=con.createStatement(); 
