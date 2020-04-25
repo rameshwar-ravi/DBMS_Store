@@ -58,8 +58,9 @@ public class Consumer {
 				long javaTime = javaDate.getTime();
 				java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(javaTime);
 				String join=sqlTimestamp.toString();
-				String query1="INSERT into customer (`login_id`,`login_password`,`first_name`, `last_name`,`address_line1`,`address_line2`,`city`,`pin_code`,`contact`,`country_code`,`credit_limit`,`joined_at`)";
-				String query2="VALUES ('"+loginid+"','"+password+"','"+fname+"','"+lname+"','"+address1+"','"+address2+"','"+city+"','"+pincode+"','"+contact+"','"+concode+"','"+creditlimit+"','"+join+"')";
+				int x = 0;
+				String query1="INSERT into customer (`login_id`,`login_password`,`first_name`, `last_name`,`address_line1`,`address_line2`,`city`,`pin_code`,`contact`,`country_code`,`credit_limit`,`joined_at`,`points`)";
+				String query2="VALUES ('"+loginid+"','"+password+"','"+fname+"','"+lname+"','"+address1+"','"+address2+"','"+city+"','"+pincode+"','"+contact+"','"+concode+"','"+creditlimit+"','"+join+"','"+x+"' )";
 				String final_query=query1+query2;
 				stmt.executeUpdate(final_query);
 				stmt.close();
@@ -179,12 +180,37 @@ public class Consumer {
 					ResultSet rs=stmt.executeQuery("SELECT sum(total_amount),sum(number_of_products) FROM cart where customer_id="+Integer.toString(customer_id));
 					int totc=0;
 					int totp=0;
+					ResultSet rs1=stmt.executeQuery("SELECT points FROM customer where customer_id="+Integer.toString(customer_id));
+					int points = rs1.getInt("points");
 					if(rs.first()) {
 						totc=rs.getInt(1);
 						totp=rs.getInt(2);
 						if(totc<0) totc=0;
 						if(totp<0) totp=0;
 						System.out.println("total cost "+totc+" total products "+ totp);
+						
+						//applying reward points
+						 
+						
+						System.out.println("You have "+ points + "reward points in your account. Would you like to use them? yes/no?");
+						String reply = sc.next();
+						if(reply == "yes")
+						{
+							if(points > totc)
+							{
+								totc = totc - (points/10);
+								points = points - totc;
+								stmt.executeUpdate("Update consumer set points=" + points + "where consumer_id=" + Integer.toString(customer_id));
+							}
+							else
+							{
+								totc = totc - (points/10);
+								points = 0;
+								stmt.executeUpdate("Update consumer set points=" + points + "where consumer_id=" + Integer.toString(customer_id));
+							}
+						}						
+						
+						
 					}
 					System.out.println("checkout yes/no");
 					String yn=sc.next();
@@ -192,6 +218,10 @@ public class Consumer {
 					if(yn.equals("yes")) {
 						System.out.println("+++++++order placed successfully++++++++++++");
 						stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(-totc)+","+Integer.toString(-totp)+")");
+						System.out.println(totc + "points have been added to your reward points!");
+						int totPoints = points + totc;
+						stmt.executeUpdate("Update consumer set points=" + totPoints  + "where consumer_id=" + Integer.toString(customer_id));
+
 					}
 					else return 1;
 				}
