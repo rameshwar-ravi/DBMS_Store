@@ -4,7 +4,7 @@ import java.util.*;
 public class Consumer {
 	Scanner sc=new Scanner(System.in);
 	int customer_id=18;int order_id=15;int productcount=0;int cost=0;
-	int count1=0;
+	int count1=0;int count2=0;
 	//customer login function
 	public int customer_login(Connection con) {
 		try {
@@ -122,10 +122,10 @@ public class Consumer {
 				// flag==4 allows user to search particular product and add to cart
 				else if(flag==4) {
 						System.out.println("Search for product and add to cart");
-						if(count1==0) {
+						//if(count1==0) {
 							String prod1=sc.nextLine();
 							count1++;
-						}
+						//}
 						String prod=sc.nextLine();
 						System.out.println("you entered ==> "+prod);
 						System.out.println("--------------------------------------------------------------");
@@ -133,7 +133,7 @@ public class Consumer {
 						while(rs1.next()) {
 							order_id=rs1.getInt(1)+1;// this tracks the order_id for a particular order
 						}
-						productcount++;
+						
 						ResultSet rs=stmt.executeQuery("select product_name,product_price,product_rating,quantity_available,product_id from products where product_name='"+prod+"'");
 						if(!rs.first()) {
 							System.out.println("*********Sorry no product with this name try again************");
@@ -147,6 +147,7 @@ public class Consumer {
 						String input=sc.next();
 						System.out.println("--------------------------------------------------------------");
 						if(input.equals("yes")) {
+							productcount++;
 							int quantity_available=rs.getInt(4);
 							System.out.println("quantity, please put less than "+quantity_available);
 							int k=sc.nextInt();
@@ -157,6 +158,7 @@ public class Consumer {
 							
 							int price=product_price*k;
 							cost+=price;
+							System.out.println(productcount+" "+cost);
 							String pr=Integer.toString(price);
 							stmt.executeUpdate("INSERT INTO order_items VALUES ("+Integer.toString(order_id)+","+Integer.toString(product_id)+","+Integer.toString(k)+","+pr+","+"0"+","+pr+")" );
 							String qu="UPDATE products SET quantity_available ="+Integer.toString(quantity_available-k)+" WHERE product_name='"+prod+"'";
@@ -195,13 +197,12 @@ public class Consumer {
 									+ " VALUES ("+Integer.toString(customer_id)+",'active','"+address1+"','"+address2+"',"+pincode+",'India',"+del_exec+",'"+join+"')";
 							stmt.executeUpdate(orderq);
 							stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(cost)+","+Integer.toString(productcount)+")");
+							//System.out.println(productcount+" "+cost);
 							productcount=0;cost=0;
 							
 							return 1;
 						}
-						else {
-							sc.nextLine();
-						}
+						
 						return 1;
 					}
 				// flag==5 is for checking out the cart
@@ -255,7 +256,11 @@ public class Consumer {
 						stmt.executeUpdate("Update customer set points=" + totPoints  + " where customer_id=" + Integer.toString(customer_id));
 						return 1;
 					}
-					else return 1;
+					else {
+						
+						return 1;
+					}
+					
 				}
 				//flag 7 is to submit product rating
 				if(flag==7) {
