@@ -206,11 +206,14 @@ public class Consumer {
 					}
 				// flag==5 is for checking out the cart
 				if(flag==5) {
+					ResultSet rs1=stmt.executeQuery("SELECT points FROM customer where customer_id="+Integer.toString(customer_id));
+					int points=0;
+					if(rs1.next()) {
+						points = rs1.getInt("points");
+					}
 					ResultSet rs=stmt.executeQuery("SELECT sum(total_amount),sum(number_of_products) FROM cart where customer_id="+Integer.toString(customer_id));
 					int totc=0;
 					int totp=0;
-					ResultSet rs1=stmt.executeQuery("SELECT points FROM customer where customer_id="+Integer.toString(customer_id));
-					int points = rs1.getInt("points");
 					if(rs.first()) {
 						totc=rs.getInt(1);
 						totp=rs.getInt(2);
@@ -221,7 +224,7 @@ public class Consumer {
 						//applying reward points
 						 
 						
-						System.out.println("You have "+ points + "reward points in your account. Would you like to use them? yes/no?");
+						System.out.println("You have "+ points + " reward points in your account. Would you like to use them? yes/no?");
 						String reply = sc.next();
 						if(reply == "yes")
 						{
@@ -229,13 +232,13 @@ public class Consumer {
 							{
 								totc = totc - (points/10);
 								points = points - totc;
-								stmt.executeUpdate("Update consumer set points=" + points + "where consumer_id=" + Integer.toString(customer_id));
+								stmt.executeUpdate("Update customer set points=" + points + " where customer_id=" + Integer.toString(customer_id));
 							}
 							else
 							{
 								totc = totc - (points/10);
 								points = 0;
-								stmt.executeUpdate("Update consumer set points=" + points + "where consumer_id=" + Integer.toString(customer_id));
+								stmt.executeUpdate("Update customer set points=" + points + " where customer_id=" + Integer.toString(customer_id));
 							}
 						}						
 						
@@ -249,8 +252,8 @@ public class Consumer {
 						stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(-totc)+","+Integer.toString(-totp)+")");
 						System.out.println(totc + "points have been added to your reward points!");
 						int totPoints = points + totc;
-						stmt.executeUpdate("Update consumer set points=" + totPoints  + "where consumer_id=" + Integer.toString(customer_id));
-
+						stmt.executeUpdate("Update customer set points=" + totPoints  + " where customer_id=" + Integer.toString(customer_id));
+						return 1;
 					}
 					else return 1;
 				}
