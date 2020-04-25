@@ -1,4 +1,4 @@
-package Connection;
+//package Connection;
 //package
 
 import java.util.*;
@@ -8,7 +8,7 @@ public class grocery_store {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		Mysql_connection mysql_conn=new Mysql_connection();
-		Connection con=mysql_conn.conn("root", "jayantj1j");
+		Connection con=mysql_conn.conn("root", "Butru@51129");
 		
 		System.out.println();
 		System.out.println("--------------------------------------------------------------");
@@ -27,7 +27,20 @@ public class grocery_store {
 		if(input1==2) flag=2; //Consumer
 		if(input1==3) flag=3; // Delivery Executive
 		if(input1==4) flag=4; //Supplier
-
+		/// global variables
+		///takes care of continuous work flow
+		
+//consumer
+		boolean loggedin=false;
+		Consumer customer=new Consumer();
+//del exec		
+		Delivery_Executive delx=new Delivery_Executive();
+		int flag1d=1;int regd=-1;
+		int delivery=0;
+//supplier
+		Supplier sup=new Supplier();
+		int flag1s=1;int regs=-1;
+		int sup_id=0;
 		while(true && flag!=0) {
 			//admin left
 			
@@ -36,8 +49,7 @@ public class grocery_store {
 			//consumer part
 			if(flag==2) {
 				
-				boolean loggedin=false;
-				Consumer customer=new Consumer();
+				
 				try {
 					if(!loggedin) {
 						System.out.println("--------------------------------------------------------------");
@@ -168,33 +180,34 @@ public class grocery_store {
 			else if(flag==3) {
 				try {
 					
-					System.out.println("--------------------------------------------------------------");
-					System.out.println("**************************************************************");
-					System.out.println("                 Welcome to Delivery Executive Portal");
-					System.out.println("**************************************************************");
-					System.out.println("--------------------------------------------------------------");	
-					System.out.println();
 					
-					System.out.println();
-					System.out.println("--------------------------------------------------------------");
-					System.out.println();
-					System.out.println("Press 1 to proceed");
-					System.out.println("Press 0 to exit");
-					System.out.println();
-					System.out.println("--------------------------------------------------------------");
-					System.out.println();
+					int hg=1;
 					
-					int hh=sc.nextInt();
-					if(hh==0) break;
-					
-					int delivery=0;
-					Delivery_Executive delx=new Delivery_Executive();
-					int flag1=1;int reg=-1;
-					
-					while(flag1==1) 
+					while(flag1d==1) 
 					{
-						reg=delx.delivery_executive_login(con);
-						if(reg==0) 
+						System.out.println("--------------------------------------------------------------");
+						System.out.println("**************************************************************");
+						System.out.println("                 Welcome to Delivery Executive Portal");
+						System.out.println("**************************************************************");
+						System.out.println("--------------------------------------------------------------");	
+						System.out.println();
+						
+						System.out.println();
+						System.out.println("--------------------------------------------------------------");
+						System.out.println();
+						System.out.println("Press 1 to proceed");
+						System.out.println("Press 0 to exit");
+						int hh=sc.nextInt();
+						if(hh==0) {
+							hg=0;
+							break;
+						}
+						System.out.println();
+						System.out.println("--------------------------------------------------------------");
+						System.out.println();
+						
+						regd=delx.delivery_executive_login(con);
+						if(regd==0) 
 						{
 							System.out.println();
 							System.out.println("--------------------------------------------------------------");
@@ -211,11 +224,11 @@ public class grocery_store {
 						else 
 						{
 							System.out.println("Login Successful");
-							delivery=reg;
-							flag1=2; //logged in
+							delivery=regd;
+							flag1d=2; //logged in
 						}
 					}
-
+					if(hg==0) break;
 					System.out.println();
 					System.out.println("--------------------------------------------------------------");
 					System.out.println();
@@ -228,12 +241,12 @@ public class grocery_store {
 
 					int item_flag=sc.nextInt();
 
-					if(item_flag==1 && flag1==2) { //show details
+					if(item_flag==1 && flag1d==2) { //show details
 						delx.show_details(con,delivery);
-						break;
+						
 					}
 
-					if(item_flag==2 && flag1==2) { //display current pending orders
+					if(item_flag==2 && flag1d==2) { //display current pending orders
 						System.out.println();
 						System.out.println("--------------------------------------------------------------");
 						System.out.println();
@@ -245,7 +258,7 @@ public class grocery_store {
 
 					}
 
-					else if(item_flag==3 && flag1==2) { //view details of single order
+					else if(item_flag==3 && flag1d==2) { //view details of single order
 						System.out.println();
 						System.out.println("--------------------------------------------------------------");
 						System.out.println();
@@ -256,7 +269,7 @@ public class grocery_store {
 
 					}
 
-					else if(item_flag==4 && flag1==2) { //update details
+					else if(item_flag==4 && flag1d==2) { //update details
 						System.out.println();
 						System.out.println("--------------------------------------------------------------");
 						System.out.println();
@@ -280,32 +293,33 @@ public class grocery_store {
 			// supplier part
 			else if(flag==4) {
 				try {
-					System.out.println("--------------------------------------------------------------");
-					System.out.println("**************************************************************");
-					System.out.println("                 Welcome to Supplier Portal");
-					System.out.println("**************************************************************");
-					System.out.println("--------------------------------------------------------------");	
-					System.out.println();
+					
+					
+					
+					int hg=1;
+					while(flag1s==1) {
+						regs=sup.supplier_login(con);
+						if(regs==0) {
+							System.out.println("--------------------------------------------------------------");
+							System.out.println("**************************************************************");
+							System.out.println("                 Welcome to Supplier Portal");
+							System.out.println("**************************************************************");
+							System.out.println("--------------------------------------------------------------");	
+							System.out.println();
 
-					System.out.println();
-					System.out.println("--------------------------------------------------------------");
-					System.out.println();
-					System.out.println("Press 1 to proceed");
-					System.out.println("Press 0 to exit");
-					System.out.println();
-					System.out.println("--------------------------------------------------------------");
-					System.out.println();
-					
-					int hh=sc.nextInt();
-					if(hh==0) break;
-					int sup_id=0;
-					
-					Supplier sup=new Supplier();
-					int flag1=1;int reg=-1;
-					
-					while(flag1==1) {
-						reg=sup.supplier_login(con);
-						if(reg==0) {
+							System.out.println();
+							System.out.println("--------------------------------------------------------------");
+							System.out.println();
+							System.out.println("Press 1 to proceed");
+							System.out.println("Press 0 to exit");
+							System.out.println();
+							int hh=sc.nextInt();
+							if(hh==0) {
+								hg=0;
+								break;
+							}
+							System.out.println("--------------------------------------------------------------");
+							System.out.println();
 							System.out.println();
 							System.out.println("--------------------------------------------------------------");
 							System.out.println();
@@ -324,11 +338,11 @@ public class grocery_store {
 							System.out.println();
 							System.out.println("--------------------------------------------------------------");
 							System.out.println();
-							sup_id=reg;
-							flag1=2; //login 
+							sup_id=regs;
+							flag1s=2; //login 
 						}
 					}
-
+					if(hg==0) break;
 				System.out.println();
 				
 					System.out.println();
@@ -342,7 +356,7 @@ public class grocery_store {
 
 					int item_flag=sc.nextInt();
 
-					if(item_flag==0 && flag1==2) { //display supplied products
+					if(item_flag==0 && flag1s==2) { //display supplied products
 						System.out.println();
 						System.out.println("--------------------------------------------------------------");
 						System.out.println();
@@ -352,7 +366,7 @@ public class grocery_store {
 						System.out.println();
 						
 					}
-					else if(item_flag==1 && flag1==2) { //details and rating
+					else if(item_flag==1 && flag1s==2) { //details and rating
 						System.out.println();
 						System.out.println("--------------------------------------------------------------");
 						System.out.println();
