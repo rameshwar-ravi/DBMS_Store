@@ -14,9 +14,9 @@ public class Delivery_Executive {
 			try {
 				System.out.println("************");
 				System.out.println("Welcome Delivery Executive");
-				System.out.println("Enter delivery_login_id: ");
+				System.out.println("Enter delivery executive ID: ");
 		String loginid=sc.next();
-		System.out.println("Enter Password:");
+		System.out.println("Enter your unique photo ID number:");
 		String password=sc.next();
 		System.out.println("************");
 		ResultSet rs=stmt.executeQuery("select * from delivery_executive where delivery_executive_id='"+loginid+"'"+ "and photo_id_number='"+password+"'");
