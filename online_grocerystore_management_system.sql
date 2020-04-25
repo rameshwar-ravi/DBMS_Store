@@ -1,4 +1,4 @@
-DROP DATABASE `online_grocerystore_management_system`;
+-- DROP DATABASE `online_grocerystore_management_system`;
 
 CREATE DATABASE `online_grocerystore_management_system` ;
 
@@ -9,7 +9,6 @@ CREATE TABLE `online_grocerystore_management_system`.`admin` (
   `admin_userid` VARCHAR(45) NULL unique,
   `admin_password` VARCHAR(45) NULL,
   PRIMARY KEY (`admin_id`));
-select count(*) from orders;
 CREATE TABLE `online_grocerystore_management_system`.`invoice` (
   `invoice_id` INT NOT NULL,
   `order_id` INT NOT NULL,
@@ -35,9 +34,9 @@ CREATE TABLE `online_grocerystore_management_system`.`feedback` (
   PRIMARY KEY(`f_id`));
    
 
-  drop table feedback;
-  INSERT INTO feedback (customer_id,product_id,product_rating) VALUES (1,20,5);
-  select * from products where product_name='Bro Code';
+ -- drop table feedback;
+--  INSERT INTO feedback (customer_id,product_id,product_rating) VALUES (1,20,5);
+ -- select * from products where product_name='Bro Code';
   CREATE TABLE `online_grocerystore_management_system`.`supplier` (
   `supplier_id` INT NOT NULL,
   `supplier_name` VARCHAR(45) NULL,
@@ -83,6 +82,7 @@ CREATE TABLE `online_grocerystore_management_system`.`customer` (
   `country_code` INT NULL,
   `credit_limit` DECIMAL(12,5) NULL,
   `joined_at` TIMESTAMP NULL,
+  `points` INT NULL,
   PRIMARY KEY (`customer_id`));
 ALTER TABLE `online_grocerystore_management_system`.`customer` AUTO_INCREMENT=100;
 
@@ -118,9 +118,9 @@ CREATE TABLE `online_grocerystore_management_system`.`order_status` (
   `sum_total` INT NULL);
 ALTER TABLE `online_grocerystore_management_system`.`order_status` 
 RENAME TO  `online_grocerystore_management_system`.`order_items` ;
-SELECT p.product_name from orders as o,order_items as od,products as p where o.customer_id=100 and od.order_id=o.order_id and p.product_id=od.product_id;
-select * from orders;
-select * from order_items;
+-- SELECT p.product_name from orders as o,order_items as od,products as p where o.customer_id=100 and od.order_id=o.order_id and p.product_id=od.product_id;
+-- select * from orders;
+-- select * from order_items;
 # insert values into tables
 INSERT into `online_grocerystore_management_system`.`return_order` VALUES (1,03,'2020-02-03 10:07:31','Done',300);
 INSERT into `online_grocerystore_management_system`.`return_order` VALUES (2,06,'2020-02-03 10:07:31','Pending',600);
@@ -187,16 +187,16 @@ INSERT into `online_grocerystore_management_system`.`categories` VALUES (3,'Beer
 INSERT into `online_grocerystore_management_system`.`categories` VALUES (5,'Paper Products');
 INSERT into `online_grocerystore_management_system`.`categories` VALUES (6,'Cleaning Supplies');
 
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (1,'Gurjot123','0123','Gurjot','Singh','Block F Flat Number 24','Greater Kailash', 'Delhi', 110087,'7554773450',91, 500000, '2020-02-01 17:00:01');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (2,'Nishant123','0123','Nishant','Verma','Sector 8 Flat Number 109','Noida', 'Delhi', 110083,'9875346150',91, 500000, '2019-03-11 10:10:01');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (3,'Raghav123','0123','Abhishek','Bacchan','Block c Flat Number 29','Kailash Colony', 'Delhi', 110007,'8382098761',91, 500000, '2019-03-01 13:00:01');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (4,'Abhishek123','0123','Naman','Verma','Sector 2 Flat Number 7','Noia', 'Delhi', 110083,'9973328884',91, 500000, '2019-11-7 00:26:01');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (5,'Naman123','0123','Sarthak','Aggarwal','Block C Flat Number 36A','Lodhi Road', 'Delhi', 110065,'8800361370',91, 500000, '2019-08-11 10:00:01');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (6,'Rohan123','0123','Rohan','Chokara','Block G Flat Number 36A','Pitampura', 'Delhi', 110075,'8809372370',91, 500000, '2020-01-14 11:30:31');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (7,'Aditya123','0123','Aditya','Gupta','Phase II Residents Colony Flat Number 41A','Oakhla', 'Delhi', 110025,'9728782730',91, 500000, '2020-01-18 07:10:51');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (8,'Utkarsh123','0123','Utkarsh','Jha','Block G Flat Number 79','Nre Friends Colony', 'Delhi', 110075,'8803351170',91, 500000, '2019-08-11 11:40:41');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (9,'Piyush123','0123','Piyush','Aggarwal','Block 3 Flat Number 128','Vijay Nagar', 'Delhi', 110038,'8990361370',91, 500000, '2019-09-21 10:20:51');
-INSERT into `online_grocerystore_management_system`.`customer` VALUES (10,'Anmol123','0123','Vishal','Yadav','Block * Flat Number 32C','Greater Kailash-2', 'Delhi', 110088,'9800367037',91, 500000, '2019-11-28 09:23:01');
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (1,'Gurjot123','0123','Gurjot','Singh','Block F Flat Number 24','Greater Kailash', 'Delhi', 110087,'7554773450',91, 500000, '2020-02-01 17:00:01',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (2,'Nishant123','0123','Nishant','Verma','Sector 8 Flat Number 109','Noida', 'Delhi', 110083,'9875346150',91, 500000, '2019-03-11 10:10:01',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (3,'Raghav123','0123','Abhishek','Bacchan','Block c Flat Number 29','Kailash Colony', 'Delhi', 110007,'8382098761',91, 500000, '2019-03-01 13:00:01',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (4,'Abhishek123','0123','Naman','Verma','Sector 2 Flat Number 7','Noia', 'Delhi', 110083,'9973328884',91, 500000, '2019-11-7 00:26:01',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (5,'Naman123','0123','Sarthak','Aggarwal','Block C Flat Number 36A','Lodhi Road', 'Delhi', 110065,'8800361370',91, 500000, '2019-08-11 10:00:01',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (6,'Rohan123','0123','Rohan','Chokara','Block G Flat Number 36A','Pitampura', 'Delhi', 110075,'8809372370',91, 500000, '2020-01-14 11:30:31',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (7,'Aditya123','0123','Aditya','Gupta','Phase II Residents Colony Flat Number 41A','Oakhla', 'Delhi', 110025,'9728782730',91, 500000, '2020-01-18 07:10:51',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (8,'Utkarsh123','0123','Utkarsh','Jha','Block G Flat Number 79','Nre Friends Colony', 'Delhi', 110075,'8803351170',91, 500000, '2019-08-11 11:40:41',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (9,'Piyush123','0123','Piyush','Aggarwal','Block 3 Flat Number 128','Vijay Nagar', 'Delhi', 110038,'8990361370',91, 500000, '2019-09-21 10:20:51',0);
+INSERT into `online_grocerystore_management_system`.`customer` VALUES (10,'Anmol123','0123','Vishal','Yadav','Block * Flat Number 32C','Greater Kailash-2', 'Delhi', 110088,'9800367037',91, 500000, '2019-11-28 09:23:01',0);
 
 INSERT into `online_grocerystore_management_system`.`orders` VALUES (1,5,'Order Placed','Block C Flat Number 36A','Lodhi Road,Delhi', 110065,'India',7,'2020-02-01 17:00:01' );
 INSERT into `online_grocerystore_management_system`.`orders` VALUES (2,2,'Shipping','Sector 8 Flat Number 109','Noida', 110083,'India',5,'2020-01-11 18:10:31' );
@@ -262,92 +262,92 @@ INSERT into `online_grocerystore_management_system`.`order_items` VALUES (7,8,1,
 INSERT into `online_grocerystore_management_system`.`order_items` VALUES (8,9,2,600,10,590);
 
 # add foreign keys 
-ALTER TABLE `online_grocerystore_management_system`.`feedback` 
-ADD INDEX `customer_id` (`customer_id` ASC) INVISIBLE,
-ADD INDEX `product_id` (`product_id` ASC) VISIBLE,
-ADD INDEX `supplier_id` (`supplier_id` ASC) VISIBLE,
-ADD INDEX `delivery_executive_id` (`delivery_executive_id` ASC) VISIBLE;
+-- ALTER TABLE `online_grocerystore_management_system`.`feedback` 
+-- ADD INDEX `customer_id` (`customer_id` ASC) INVISIBLE,
+-- ADD INDEX `product_id` (`product_id` ASC) VISIBLE,
+-- ADD INDEX `supplier_id` (`supplier_id` ASC) VISIBLE,
+-- ADD INDEX `delivery_executive_id` (`delivery_executive_id` ASC) VISIBLE;
 
-ALTER TABLE `online_grocerystore_management_system`.`feedback` 
-ADD CONSTRAINT `customer_id_fk`
-  FOREIGN KEY (`customer_id`)
-  REFERENCES `online_grocerystore_management_system`.`customer` (`customer_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-ADD CONSTRAINT `product_id_fk`
-  FOREIGN KEY (`product_id`)
-  REFERENCES `online_grocerystore_management_system`.`products` (`product_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-ADD CONSTRAINT `supplier_id_fk`
-  FOREIGN KEY (`supplier_id`)
-  REFERENCES `online_grocerystore_management_system`.`supplier` (`supplier_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-ADD CONSTRAINT `delivery_executive_id_fk`
-  FOREIGN KEY (`delivery_executive_id`)
-  REFERENCES `online_grocerystore_management_system`.`delivery_executive` (`delivery_executive_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+-- ALTER TABLE `online_grocerystore_management_system`.`feedback` 
+-- ADD CONSTRAINT `customer_id_fk`
+--   FOREIGN KEY (`customer_id`)
+--   REFERENCES `online_grocerystore_management_system`.`customer` (`customer_id`)
+ --  ON DELETE CASCADE
+ --  ON UPDATE CASCADE,
+-- ADD CONSTRAINT `product_id_fk`
+--   FOREIGN KEY (`product_id`)
+--   REFERENCES `online_grocerystore_management_system`.`products` (`product_id`)
+--   ON DELETE CASCADE
+--   ON UPDATE CASCADE,
+-- ADD CONSTRAINT `supplier_id_fk`
+-- FOREIGN KEY (`supplier_id`)
+--   REFERENCES `online_grocerystore_management_system`.`supplier` (`supplier_id`)
+--   ON DELETE CASCADE
+--   ON UPDATE CASCADE,
+-- ADD CONSTRAINT `delivery_executive_id_fk`
+--   FOREIGN KEY (`delivery_executive_id`)
+--   REFERENCES `online_grocerystore_management_system`.`delivery_executive` (`delivery_executive_id`)
+--   ON DELETE CASCADE
+--   ON UPDATE CASCADE;
 
-ALTER TABLE `online_grocerystore_management_system`.`invoice` 
-ADD INDEX `order_id_fk_idx` (`order_id` ASC) VISIBLE;
+-- ALTER TABLE `online_grocerystore_management_system`.`invoice` 
+-- ADD INDEX `order_id_fk_idx` (`order_id` ASC) VISIBLE;
 ;
-ALTER TABLE `online_grocerystore_management_system`.`invoice` 
-ADD CONSTRAINT `order_id_fk`
-  FOREIGN KEY (`order_id`)
-  REFERENCES `online_grocerystore_management_system`.`orders` (`order_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+-- ALTER TABLE `online_grocerystore_management_system`.`invoice` 
+-- ADD CONSTRAINT `order_id_fk`
+--   FOREIGN KEY (`order_id`)
+--   REFERENCES `online_grocerystore_management_system`.`orders` (`order_id`)
+--   ON DELETE CASCADE
+--   ON UPDATE CASCADE;
 
-ALTER TABLE `online_grocerystore_management_system`.`cart` 
-ADD CONSTRAINT `customer_id_fk1`
-  FOREIGN KEY (`customer_id`)
-  REFERENCES `online_grocerystore_management_system`.`customer` (`customer_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+-- ALTER TABLE `online_grocerystore_management_system`.`cart` 
+-- ADD CONSTRAINT `customer_id_fk1`
+--   FOREIGN KEY (`customer_id`)
+--   REFERENCES `online_grocerystore_management_system`.`customer` (`customer_id`)
+--   ON DELETE CASCADE
+--   ON UPDATE CASCADE;
 
-ALTER TABLE `online_grocerystore_management_system`.`return_order` 
-ADD CONSTRAINT `order_id_fk1`
-  FOREIGN KEY (`order_id`)
-  REFERENCES `online_grocerystore_management_system`.`orders` (`order_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+-- ALTER TABLE `online_grocerystore_management_system`.`return_order` 
+-- ADD CONSTRAINT `order_id_fk1`
+--   FOREIGN KEY (`order_id`)
+--   REFERENCES `online_grocerystore_management_system`.`orders` (`order_id`)
+--   ON DELETE CASCADE
+--   ON UPDATE CASCADE;
 
-ALTER TABLE `online_grocerystore_management_system`.`orders` 
-ADD CONSTRAINT `customer_id_fk2`
-  FOREIGN KEY (`customer_id`)
-  REFERENCES `online_grocerystore_management_system`.`customer` (`customer_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+-- ALTER TABLE `online_grocerystore_management_system`.`orders` 
+-- ADD CONSTRAINT `customer_id_fk2`
+--   FOREIGN KEY (`customer_id`)
+--   REFERENCES `online_grocerystore_management_system`.`customer` (`customer_id`)
+--   ON DELETE CASCADE
+--   ON UPDATE CASCADE;
 
-ALTER TABLE `online_grocerystore_management_system`.`products` 
-ADD CONSTRAINT `supplier_id_fk1`
-  FOREIGN KEY (`supplier_id`)
-  REFERENCES `online_grocerystore_management_system`.`supplier` (`supplier_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-ADD CONSTRAINT `category_id_fk`
-  FOREIGN KEY (`category_id`)
-  REFERENCES `online_grocerystore_management_system`.`categories` (`category_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+-- ALTER TABLE `online_grocerystore_management_system`.`products` 
+-- ADD CONSTRAINT `supplier_id_fk1`
+--   FOREIGN KEY (`supplier_id`)
+--   REFERENCES `online_grocerystore_management_system`.`supplier` (`supplier_id`)
+ --  ON DELETE CASCADE
+ --  ON UPDATE CASCADE,
+-- ADD CONSTRAINT `category_id_fk`
+--  FOREIGN KEY (`category_id`)
+--   REFERENCES `online_grocerystore_management_system`.`categories` (`category_id`)
+--   ON DELETE CASCADE
+--   ON UPDATE CASCADE;
 
-ALTER TABLE `online_grocerystore_management_system`.`order_items` 
-ADD INDEX `order_id_fk2_idx` (`order_id` ASC) VISIBLE,
-ADD INDEX `product_id_fk1_idx` (`product_id` ASC) VISIBLE;
+-- ALTER TABLE `online_grocerystore_management_system`.`order_items` 
+-- ADD INDEX `order_id_fk2_idx` (`order_id` ASC) VISIBLE,
+-- ADD INDEX `product_id_fk1_idx` (`product_id` ASC) VISIBLE;
 ;
-ALTER TABLE `online_grocerystore_management_system`.`order_items` 
-ADD CONSTRAINT `order_id_fk2`
-  FOREIGN KEY (`order_id`)
-  REFERENCES `online_grocerystore_management_system`.`orders` (`order_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-ADD CONSTRAINT `product_id_fk1`
-  FOREIGN KEY (`product_id`)
-  REFERENCES `online_grocerystore_management_system`.`products` (`product_id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+-- ALTER TABLE `online_grocerystore_management_system`.`order_items` 
+-- ADD CONSTRAINT `order_id_fk2`
+ --  FOREIGN KEY (`order_id`)
+ --  REFERENCES `online_grocerystore_management_system`.`orders` (`order_id`)
+ --  ON DELETE CASCADE
+ --  ON UPDATE CASCADE,
+-- ADD CONSTRAINT `product_id_fk1`
+ --  FOREIGN KEY (`product_id`)
+ --  REFERENCES `online_grocerystore_management_system`.`products` (`product_id`)
+ --  ON DELETE CASCADE
+ --  ON UPDATE CASCADE;
   
   -- 
   
