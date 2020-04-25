@@ -1,4 +1,4 @@
-package Connection;
+//package Connection;
 import java.sql.*;
 import java.util.*;
 public class Consumer {
@@ -161,17 +161,44 @@ public class Consumer {
 							stmt.executeUpdate("INSERT INTO order_items VALUES ("+Integer.toString(order_id)+","+Integer.toString(product_id)+","+Integer.toString(k)+","+pr+","+"0"+","+pr+")" );
 							String qu="UPDATE products SET quantity_available ="+Integer.toString(quantity_available-k)+" WHERE product_name='"+prod+"'";
 							stmt.executeUpdate(qu);
+							
+						}
+						ResultSet rs2=stmt.executeQuery("select count(*) from delivery_executive");
+						int del=1;
+						if(rs2.next()) {
+							del=rs2.getInt(1);
 						}
 						System.out.println("finish order yes/no");
 						System.out.println("--------------------------------------------------------------");
 						String inp1=sc.next();
 						if(inp1.equals("yes")) {
-							order_id++;
-							stmt.executeUpdate("INSERT INTO orders (customer_id) VALUES ("+Integer.toString(customer_id)+")");
+							Random rand = new Random();
+							int del_id = rand.nextInt(del); 
+							String del_exec=Integer.toString(del_id++);
+							order_id++;// just to debug variable
+							System.out.println("Please enter order address=====>");
+							sc.nextLine();
+							System.out.println("address_line_1");
+							String address1=sc.nextLine();
+							System.out.println("address_line_2");
+							String address2=sc.nextLine();
+							System.out.println("pincode");
+							String pincode=sc.nextLine();
+							java.util.Date javaDate = new java.util.Date();
+							long javaTime = javaDate.getTime();
+							java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(javaTime);
+							String join=sqlTimestamp.toString();
+							String orderq="INSERT INTO orders(customer_id,status,order_ship_address_line1,order_ship_address_line2,order_ship_city_pincode,"
+									+ "order_ship_country,order_delivery_partner,created_at)"
+									+ " VALUES ("+Integer.toString(customer_id)+",'active','"+address1+"','"+address2+"',"+pincode+",'India',"+del_exec+",'"+join+"')";
+							stmt.executeUpdate(orderq);
 							stmt.executeUpdate("INSERT INTO cart VALUES ("+Integer.toString(customer_id)+","+Integer.toString(cost)+","+Integer.toString(productcount)+")");
 							productcount=0;cost=0;
 							
 							return 1;
+						}
+						else {
+							sc.nextLine();
 						}
 						return 1;
 					}
