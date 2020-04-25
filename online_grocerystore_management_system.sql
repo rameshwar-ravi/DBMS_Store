@@ -22,21 +22,13 @@ CREATE TABLE `online_grocerystore_management_system`.`invoice` (
   `number_of_products` INT(5) NULL);
 
 CREATE TABLE `online_grocerystore_management_system`.`feedback` (
-	`f_id` int NOT NULL AUTO_INCREMENT,
+`f_id` int NOT NULL AUTO_INCREMENT,
   `customer_id` INT NOT NULL,
   `product_id` INT NOT NULL,
-  `supplier_id` INT ,
-  `delivery_executive_id` INT ,
   `product_rating` INT NULL,
-  `supplier_rating` INT NULL,
-  `delivery_executive_rating` INT NULL,
   `submission_date` TIMESTAMP NULL,
   PRIMARY KEY(`f_id`));
    
-
- -- drop table feedback;
---  INSERT INTO feedback (customer_id,product_id,product_rating) VALUES (1,20,5);
- -- select * from products where product_name='Bro Code';
   CREATE TABLE `online_grocerystore_management_system`.`supplier` (
   `supplier_id` INT NOT NULL,
   `supplier_name` VARCHAR(45) NULL,
@@ -118,10 +110,7 @@ CREATE TABLE `online_grocerystore_management_system`.`order_status` (
   `sum_total` INT NULL);
 ALTER TABLE `online_grocerystore_management_system`.`order_status` 
 RENAME TO  `online_grocerystore_management_system`.`order_items` ;
--- SELECT p.product_name from orders as o,order_items as od,products as p where o.customer_id=100 and od.order_id=o.order_id and p.product_id=od.product_id;
--- select * from orders;
--- select * from order_items;
-# insert values into tables
+
 INSERT into `online_grocerystore_management_system`.`return_order` VALUES (1,03,'2020-02-03 10:07:31','Done',300);
 INSERT into `online_grocerystore_management_system`.`return_order` VALUES (2,06,'2020-02-03 10:07:31','Pending',600);
 
@@ -145,11 +134,11 @@ INSERT into `online_grocerystore_management_system`.`cart` VALUES (8,403,1);
 INSERT into `online_grocerystore_management_system`.`cart` VALUES (1,120,4);
 INSERT into `online_grocerystore_management_system`.`cart` VALUES (3,80,2);
 
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (1,6,6,3,7,3,5,4.5,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (2,5,19,7,8,4,5,4,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (3,2,41,9,4,3.9,3,4,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (4,9,8,8,1,5,2,4.5,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (5,4,32,11,2,5,3,4.5,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (1,6,6,3,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (2,5,19,4,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (3,2,41,3.9,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (4,9,8,5,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (5,4,32,5,'2020-02-03 10:07:31');
 
 
 INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	1,'Harold',110087,'9823787645',+91,4.6);
