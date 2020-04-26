@@ -27,6 +27,7 @@ CREATE TABLE `online_grocerystore_management_system`.`feedback` (
   `product_id` INT NOT NULL,
   `supplier_id` INT ,
   `delivery_executive_id` INT ,
+  `review` VARCHAR(225) NULL,
   `product_rating` INT NULL,
   `supplier_rating` INT NULL,
   `delivery_executive_rating` INT NULL,
@@ -139,11 +140,11 @@ INSERT into `online_grocerystore_management_system`.`cart` VALUES (8,403,1);
 INSERT into `online_grocerystore_management_system`.`cart` VALUES (1,120,4);
 INSERT into `online_grocerystore_management_system`.`cart` VALUES (3,80,2);
 
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (1,6,6,3,7,3,5,4.5,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (2,5,19,7,8,4,5,4,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (3,2,41,9,4,3.9,3,4,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (4,9,8,8,1,5,2,4.5,'2020-02-03 10:07:31');
-INSERT into `online_grocerystore_management_system`.`feedback` VALUES (5,4,32,11,2,5,3,4.5,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (1,6,6,3,7,'I loved the product.Would surely buy again',3,5,4.5,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (2,5,19,7,8,'The taste is bitter and quality not good',4,5,4,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (3,2,41,9,4,'Premium product with okayish value',3.9,3,4,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (4,9,8,8,1,'Healthy with low calories..recommended',5,2,4.5,'2020-02-03 10:07:31');
+INSERT into `online_grocerystore_management_system`.`feedback` VALUES (5,4,32,11,2,'Quite nutritious..beneficial for health',5,3,4.5,'2020-02-03 10:07:31');
 
 INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	1,'Harold',110087,'9823787645',+91,4.6);
 INSERT into `online_grocerystore_management_system`.`supplier` VALUES (	2,'Kumar',110031,'8867587679',+91,4.1);

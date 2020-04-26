@@ -8,7 +8,7 @@ public class grocery_store {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		Mysql_connection mysql_conn=new Mysql_connection();
-		Connection con=mysql_conn.conn("root", "Butru@51129");
+		Connection con=mysql_conn.conn("root", "password");
 		
 		System.out.println();
 		System.out.println("--------------------------------------------------------------");
@@ -19,6 +19,7 @@ public class grocery_store {
 		System.out.println();
 		System.out.println("Press 1 to continue as Admin \nPress 2 to continue as Customer \n"
 				+ "Press 3 to continue as Delivery Executive \nPress 4 to continue as Supplier");
+		System.out.println("Press 5 to try out the sentiment analysis of some product feedbacks");
 		System.out.println("Press 0 to exit");
 		System.out.println();
 
@@ -27,6 +28,7 @@ public class grocery_store {
 		if(input1==2) flag=2; //Consumer
 		if(input1==3) flag=3; // Delivery Executive
 		if(input1==4) flag=4; //Supplier
+		if(input1==5) flag=5; //Sentiment analysis
 		/// global variables
 		///takes care of continuous work flow
 		
@@ -41,6 +43,11 @@ public class grocery_store {
 		Supplier sup=new Supplier();
 		int flag1s=1;int regs=-1;
 		int sup_id=0;
+		
+// senti_analysis
+		MainApp obj=new MainApp();
+		
+		
 		while(true && flag!=0) {
 			//admin left
 			
@@ -355,7 +362,7 @@ public class grocery_store {
 					System.out.println();
 
 					int item_flag=sc.nextInt();
-
+					if(item_flag!=0 && item_flag!=1) break;
 					if(item_flag==0 && flag1s==2) { //display supplied products
 						System.out.println();
 						System.out.println("--------------------------------------------------------------");
@@ -386,6 +393,39 @@ public class grocery_store {
 					System.out.println();
 				}
 
+			}else if(flag==5) {
+				
+					
+				try {
+					Statement stmt=con.createStatement(); 
+					ResultSet rs=stmt.executeQuery("select A.product_name,B.review from products as A,feedback as B where"
+							+ " A.product_id=B.product_id");
+					
+					System.out.println("--------------------------------------------------------------");
+					System.out.println("Your analysed Products-*");
+					
+					while(rs.next()) {
+						System.out.println();
+						System.out.println("Product:"+rs.getString("A.product_name"));
+						System.out.println();
+						System.out.println();
+						String temp=rs.getString("B.review");
+						obj.beta_senti(temp);
+						System.out.println();
+					}
+					break;
+					
+				}
+				
+				catch(Exception e){
+					System.out.println("An error occured. Try sometime later");
+					System.out.println(e);
+					System.out.println();
+					System.out.println("--------------------------------------------------------------");
+					System.out.println();
+					break;
+				}
+				
 			}
 			else {
 				break;
