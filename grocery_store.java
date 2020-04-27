@@ -25,13 +25,15 @@ public class grocery_store {
 
 		int input1=sc.nextInt();
 		int flag=0;
+		if(input1==1) flag=1;
 		if(input1==2) flag=2; //Consumer
 		if(input1==3) flag=3; // Delivery Executive
 		if(input1==4) flag=4; //Supplier
 		if(input1==5) flag=5; //Sentiment analysis
 		/// global variables
 		///takes care of continuous work flow
-		
+// Admin
+		Admin ad=new Admin();		
 //consumer
 		boolean loggedin=false;
 		Consumer customer=new Consumer();
@@ -50,6 +52,78 @@ public class grocery_store {
 		
 		while(true && flag!=0) {
 			//admin left
+			if(flag==1)
+				{
+			int t=ad.admin_login(con);
+
+					if(t==1) 
+					{
+						int choice=1;
+						System.out.println(" __________________________________________________");
+						System.out.println("|===================================================|");
+						System.out.println("|                                                   |");
+						System.out.println("|        Welcome to the Admin Menu                  |");
+						System.out.println("|                                                   |");
+						System.out.println("|===================================================|");
+						System.out.println("|                                                   |");
+						System.out.println("|1. View/Update/Delete Consumer                     |");
+						System.out.println("|2. View/Update/Delete Supplier                     |");
+						System.out.println("|3. View/Update/Delete Products                     |");
+						System.out.println("|4. View/Update/Delete Delievery Executive          |");
+						System.out.println("|5. View/Update/Delete Categories                   |");
+						System.out.println("|6. View Feedback                                   |");
+						System.out.println("|7. Exit                                            |");
+						System.out.println("|___________________________________________________|");
+						System.out.println("Please choose your option: ");
+						choice=sc.nextInt();
+						if(choice==1)
+						{
+							ad.edit_customer(con);
+							continue;
+						}
+						else if(choice==2)
+						{
+							ad.edit_supplier(con);
+							continue;
+						}
+						else if(choice==3) {
+							ad.edit_products(con);
+							continue;
+						}
+						else if(choice==4)
+						{
+							ad.edit_delieveryexecutive(con);
+							continue;
+						}
+						else if(choice==5) {
+							ad.edit_categories(con);continue;}
+						else if(choice==6) {
+							ad.view_feedback(con); continue;}
+						else {
+							System.out.println("===================================================");
+							System.out.println("				Logout successfull					");
+							System.out.println("===================================================");
+//							int w=sc.nextInt();
+							break;
+						}
+					
+					
+					}
+					else
+					{	System.out.println("===================================================");
+						System.out.println(" OOPS!! Login Unsuccessfull!! :( Please try again");
+						System.out.println("===================================================");
+						System.out.println("Press 0 to exit and press 1 to try again");
+						int w=sc.nextInt();
+						if(w==1)
+							continue;
+						else
+							break;
+						
+					}
+				}
+
+			
 			
 			
 			
