@@ -131,26 +131,29 @@ public int delivery_executive_showresult(Connection con, String delivery, int fl
 						+ "where B.order_id = A.order_id and A.customer_id = C.customer_id and "
 						+ "D.order_id = A.order_id and A.order_id='" + order +"'"+
 						"and A.order_delivery_partner='" + delivery+"'");
-					System.out.println(rs.first());
+					//System.out.println(rs.first());
+				if(rs.first()) {
+					while(rs.next()) {
+						System.out.println("************");
+						System.out.println("Order ID: "+rs.getString("A.order_id"));
+						System.out.println("Customer Name: " + rs.getString("C.first_name"));
+						System.out.println("Customer contact: " + rs.getString("C.contact"));
+						System.out.println("Address: " + rs.getString("A.order_ship_address_line1") + 
+								rs.getString("A.order_ship_address_line2") + rs.getString("A.order_ship_city_pincode") + rs.getString("A.order_ship_country"));
+						System.out.println("Product ID: "+rs.getString("B.product_id"));
+						System.out.println("Quantity: "+rs.getString("B.quantity"));
+						System.out.println("Sum total: "+rs.getString("B.sum_total"));
+						System.out.println("Payment Mode: "+rs.getString("D.payment_mode"));
+						System.out.println("Paid ( 1 for yes, 0 for no:)-> "+rs.getString("D.paid"));
+						System.out.println("--------------");
+					}
+				}
 				
-				do {
-					System.out.println("************");
-					System.out.println("Order ID: "+rs.getString("A.order_id"));
-					System.out.println("Customer Name: " + rs.getString("C.first_name"));
-					System.out.println("Customer contact: " + rs.getString("C.contact"));
-					System.out.println("Address: " + rs.getString("A.order_ship_address_line1") + 
-							rs.getString("A.order_ship_address_line2") + rs.getString("A.order_ship_city_pincode") + rs.getString("A.order_ship_country"));
-					System.out.println("Product ID: "+rs.getString("B.product_id"));
-					System.out.println("Quantity: "+rs.getString("B.quantity"));
-					System.out.println("Sum total: "+rs.getString("B.sum_total"));
-					System.out.println("Payment Mode: "+rs.getString("D.payment_mode"));
-					System.out.println("Paid ( 1 for yes, 0 for no:)-> "+rs.getString("D.paid"));
-					System.out.println("--------------");
-				}while(rs.next());
 				
 				return 1;
 				}
 			catch (Exception e){
+				System.out.println("No such orders");
 				System.out.println(e);
 				return 0;
 			}

@@ -1,4 +1,4 @@
-package Connection;
+//package Connection;
 import java.sql.*; 
 import java.util.*;
     class Mysql_connection{  

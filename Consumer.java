@@ -4,7 +4,7 @@ import java.util.*;
 public class Consumer {
 	Scanner sc=new Scanner(System.in);
 	int customer_id=18;int order_id=15;int productcount=0;int cost=0;
-	int count1=0;int count2=0;
+	int count1=0;int count2=0;int noflag=0;
 	//customer login function
 	public int customer_login(Connection con) {
 		try {
@@ -92,8 +92,9 @@ public class Consumer {
 				}
 				//flag==2 for showing products by category
 				else if(flag==2) {
-					if(count1==0) {
+					if(count1==0 || noflag==1) {
 						sc.nextLine();
+						noflag=0;
 						count1++;
 					}
 					System.out.println("please enter the category");
@@ -122,10 +123,11 @@ public class Consumer {
 				// flag==4 allows user to search particular product and add to cart
 				else if(flag==4) {
 						System.out.println("Search for product and add to cart");
-						//if(count1==0) {
+						if(count1==0 || noflag==1) {
 							String prod1=sc.nextLine();
 							count1++;
-						//}
+							noflag=0;
+						}
 						String prod=sc.nextLine();
 						System.out.println("you entered ==> "+prod);
 						System.out.println("--------------------------------------------------------------");
@@ -165,6 +167,10 @@ public class Consumer {
 							stmt.executeUpdate(qu);
 							
 						}
+						else {
+							noflag=1;
+							return 1;
+						}
 						ResultSet rs2=stmt.executeQuery("select count(*) from delivery_executive");
 						int del=1;
 						if(rs2.next()) {
@@ -187,7 +193,7 @@ public class Consumer {
 							System.out.println("Aincode: ");
 							String pincode=sc.nextLine();
 							System.out.println();
-							System.out.println("Order placed Successfully!");
+							System.out.println("Order added to cart Successfully!");
 							java.util.Date javaDate = new java.util.Date();
 							long javaTime = javaDate.getTime();
 							java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(javaTime);
@@ -201,6 +207,9 @@ public class Consumer {
 							productcount=0;cost=0;
 							
 							return 1;
+						}
+						else {
+							noflag=1;
 						}
 						
 						return 1;
@@ -257,7 +266,7 @@ public class Consumer {
 						return 1;
 					}
 					else {
-						
+						noflag=0;
 						return 1;
 					}
 					
@@ -274,10 +283,10 @@ public class Consumer {
 						}
 					System.out.println("--------------------------------------------------------------");
 					System.out.print("submit the name of the products to rate:");
-					if(count1==0) {
+					//if(count1==0) {
 						sc.nextLine();
 						count1++;
-					}
+					//}
 					String prod=sc.nextLine();
 					System.out.println("enter rating between 0 to 5");
 					int ratings=sc.nextInt();

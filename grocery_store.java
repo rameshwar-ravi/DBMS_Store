@@ -33,7 +33,9 @@ public class grocery_store {
 		/// global variables
 		///takes care of continuous work flow
 // Admin
-		Admin ad=new Admin();		
+		Admin ad=new Admin();	
+		int adminlogged=0;
+		int t=0;
 //consumer
 		boolean loggedin=false;
 		Consumer customer=new Consumer();
@@ -54,7 +56,10 @@ public class grocery_store {
 			//admin left
 			if(flag==1)
 				{
-			int t=ad.admin_login(con);
+			if(adminlogged==0) {
+				t=ad.admin_login(con);
+				adminlogged=1;
+			}
 
 					if(t==1) 
 					{
