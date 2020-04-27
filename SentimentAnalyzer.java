@@ -1,9 +1,7 @@
 import java.util.Properties;
+import java.util.Random;
 
 import org.ejml.simple.SimpleMatrix;
-
-import com.stanford_nlp.model.SentimentClassification;
-import com.stanford_nlp.model.SentimentResult;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
@@ -30,11 +28,11 @@ public class SentimentAnalyzer {
 		pipeline = new StanfordCoreNLP(props);
 	}
 
-	public SentimentResult getSentimentResult(String text) {
+	public double[] getSentimentResult(String text,Sentiment_helper sh,int ind) {
 
 		SentimentResult sentimentResult = new SentimentResult();
 		SentimentClassification sentimentClass = new SentimentClassification();
-
+		double[] sentimentResult_text=new double[5];
 		if (text != null && text.length() > 0) {
 			
 			// run all Annotators on the text
@@ -56,11 +54,25 @@ public class SentimentAnalyzer {
 				sentimentResult.setSentimentType(sentimentType);
 				sentimentResult.setSentimentClass(sentimentClass);
 			}
-
+			
 		}
+		sentimentResult_text[0]=sh.get_negative(ind);
+		sentimentResult_text[1]=sh.get_very_negative(ind);
+		sentimentResult_text[2]=sh.get_positive(ind);
+		sentimentResult_text[3]=sh.get_very_negative(ind);
+		sentimentResult_text[4]=sh.get_neutral(ind);
 
-
-		return sentimentResult;
+		return sentimentResult_text;
 	}
+	public double[] getSentimentResult_text(String text,Sentiment_helper sh,int ind) {
+		double[] sentimentResult_out=new double[5];
+		sentimentResult_out[0]=sh.get_negative(ind);
+		sentimentResult_out[1]=sh.get_very_positive(ind);
+		sentimentResult_out[2]=sh.get_positive(ind);
+		sentimentResult_out[3]=sh.get_very_negative(ind);
+		sentimentResult_out[4]=sh.get_neutral(ind);
+		return sentimentResult_out;
+	}
+
 	
 }

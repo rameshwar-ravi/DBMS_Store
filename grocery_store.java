@@ -471,10 +471,12 @@ public class grocery_store {
 				
 					
 				try {
-					Statement stmt=con.createStatement(); 
-					ResultSet rs=stmt.executeQuery("select A.product_name,B.review from products as A,feedback as B where"
-							+ " A.product_id=B.product_id");
 					
+					
+					Statement stmt=con.createStatement(); 
+					ResultSet rs=stmt.executeQuery("select A.product_name,B.review,B.f_id from products as A,feedback as B where"
+							+ " A.product_id=B.product_id");
+					System.out.println("hi");
 					System.out.println("--------------------------------------------------------------");
 					System.out.println("Your analysed Products-*");
 					
@@ -484,7 +486,9 @@ public class grocery_store {
 						System.out.println();
 						System.out.println();
 						String temp=rs.getString("B.review");
-						obj.beta_senti(temp);
+						int id=rs.getInt("B.f_id");
+						obj.beta_senti(temp,id-1);
+						System.out.println(id);
 						System.out.println();
 					}
 					break;

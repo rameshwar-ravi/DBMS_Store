@@ -1,24 +1,22 @@
 import java.io.IOException;
 
-import com.stanford_nlp.model.SentimentResult;
-
 public class MainApp {
 
-	public void beta_senti(String text) {
+	public void beta_senti(String text,int id) {
 
 		//System.out.println(text);
 		
 		SentimentAnalyzer sentimentAnalyzer = new SentimentAnalyzer();
-		sentimentAnalyzer.initialize();
-		SentimentResult sentimentResult = sentimentAnalyzer.getSentimentResult(text);
+		Sentiment_helper sh=new Sentiment_helper();
+		double[] sentiment_out=sentimentAnalyzer.getSentimentResult_text(text,sh,id);
 
 
-		System.out.println("Sentiment Type: " + sentimentResult.getSentimentType());
-		System.out.println("Very positive: " + sentimentResult.getSentimentClass().getVeryPositive()+"%");
-		System.out.println("Positive: " + sentimentResult.getSentimentClass().getPositive()+"%");
-		System.out.println("Neutral: " + sentimentResult.getSentimentClass().getNeutral()+"%");
-		System.out.println("Negative: " + sentimentResult.getSentimentClass().getNegative()+"%");
-		System.out.println("Very negative: " + sentimentResult.getSentimentClass().getVeryNegative()+"%");
+		System.out.println("Sentiment Type: " +sh.gettype(id) );
+		System.out.println("Very positive: " + sentiment_out[1]+"%");
+		System.out.println("Positive: " + sentiment_out[2]+"%");
+		System.out.println("Neutral: " + sentiment_out[4]+"%");
+		System.out.println("Negative: " + sentiment_out[0]+"%");
+		System.out.println("Very negative: " + sentiment_out[3]+"%");
 
 	}
 
