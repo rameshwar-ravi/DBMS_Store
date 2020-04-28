@@ -254,6 +254,12 @@ INSERT into `online_grocerystore_management_system`.`order_items` VALUES (5,41,8
 INSERT into `online_grocerystore_management_system`.`order_items` VALUES (6,6,6,600,0,600);
 INSERT into `online_grocerystore_management_system`.`order_items` VALUES (7,8,1,100,0,100);
 INSERT into `online_grocerystore_management_system`.`order_items` VALUES (8,9,2,600,10,590);
+	      
+
+create index idx on customer(customer_id, login_in);
+create index idx1 on orders(order_id, customer_id);
+create index idx2 on products(product_id, product_name);
+create index idx3 on invoice(order_id);
 
 # add foreign keys 
 -- ALTER TABLE `online_grocerystore_management_system`.`feedback` 
