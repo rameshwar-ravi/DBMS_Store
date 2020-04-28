@@ -5,11 +5,13 @@ Dbms online grocery store management system
 
 1)Download all the files and put them in the same folder.
 
-2)install JDBC
+2)Install Dependencies -<br />
+I   mysql-connector-java-8.0.19 <br />
+II  ejml-0.23.jar <br />
+III stanford-corenlp-3.8.0.jar <br />
+IV  stanford-corenlp-models-3.8.0.jar <br />
 
-3)comment the package line if not using eclipse ide.
-
-4)run 
+3)run 
 
 ==>javac grocery_store.java
 
